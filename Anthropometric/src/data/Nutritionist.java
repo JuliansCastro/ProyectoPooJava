@@ -6,7 +6,8 @@ package data;
  */
 public class Nutritionist extends Person{
 
-    
+    private int yearsOfExperience;
+    private String professionalCard;
     
     //Builders
     
