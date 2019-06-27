@@ -11,6 +11,18 @@ public class Person {
     private int age;
     private String user, password, phone, email;
     
+    //Builders
+    
+    
+    //methods
+
+    public userLogin(String user, String password, String email) {
+        this.user = user;
+        this.password = password;
+        this.email = email;
+    }
+    
+    
     
     //Setters & Getters
 
