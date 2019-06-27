@@ -1,8 +1,7 @@
 
 package data;
 
-/**
- *
+/*
  * @author JULIAN C
  */
 public class Person {
@@ -12,18 +11,15 @@ public class Person {
     private String user, password, phone, email;
     
     //Builders
-    
-    
-    //methods
-
-    public userLogin(String user, String password, String email) {
+    public Person(String user, String password, String email) {
         this.user = user;
         this.password = password;
         this.email = email;
     }
     
-    
-    
+    //methods
+
+        
     //Setters & Getters
 
     public String getName() {
