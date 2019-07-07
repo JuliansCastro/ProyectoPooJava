@@ -4,27 +4,26 @@ package data;
 /**
  *
  * @author JULIAN C
+ * @author DANIEL R
+ * @author JUAN B
  */
-public class Patient extends Person{
+public class Patient extends User{
     
     private String sex;
     private int sports;
-    
-    //Builders
-    
-    public Patient(String user, String password, String email) {
-        super(user, password, email);
-    }
-    
-    public Patient(String user, String password, String email, String sex, int sports) {
-        super(user, password, email);
-        this.sex = sex;
-        this.sports = sports;
-    }
-    //methods
 
         
-    //Setters & Getters
+    /* ----------- BUILDER ------------------------------------------------------------------------------------------------------*/    
+    
+    public Patient(String user, String password, String email, boolean userType) {
+        super(user, password, email, userType = true);
+    }
+    
+    /* ----------- METHODS ------------------------------------------------------------------------------------------------------*/
+    /* ----------- SETTERS & GETTERS --------------------------------------------------------------------------------------------*/
+
+    
+
 
     
     
