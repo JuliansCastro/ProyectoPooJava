@@ -21,6 +21,7 @@ public class Login {
     private final HashMap<String, String> userList = new HashMap<>();
     private final Scanner keyboard = new Scanner(System.in);
     private BufferedReader bufferRead = null;
+    private final ExportData exportData = null;
     //private User user = new User(user, password);
 
     //Builder
@@ -49,9 +50,9 @@ public class Login {
 
         } catch (FileNotFoundException exp) {
             System.out.println("Base de datos no encontrada. Se ha creado una nueva.");
+            exportData.createFile(nameDoc);
+            
             System.out.println("\nCree un usuario por favor.");
-
-            FileWriter fw = new FileWriter(nameDoc, true);
             newUser();
             readDatabase();
             //System.exit(0);// acaba el programa
