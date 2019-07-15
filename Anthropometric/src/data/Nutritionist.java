@@ -1,5 +1,8 @@
-
 package data;
+
+import java.io.*;
+import java.util.Arrays;
+import java.util.HashMap;
 
 /*
  * @author ANONYMOUS
@@ -7,32 +10,84 @@ package data;
  * @author DANIEL R
  * @author JUAN B
  */
+public class Nutritionist extends User {
 
-public class Nutritionist extends User{
-
-    private int yearsOfExperience;
-    private String professionalCard;
-    Patient patient = new Patient();
+    private final String nameDoc = "userProfile.txt";
+    private String yearsOfExperience, professionalCard;
+    private BufferedReader bufferRead = null;
     
-    /* ----------- BUILDER ------------------------------------------------------------------------------------------------------*/    
+    Patient patient = new Patient();
 
+    /* ----------- BUILDER ------------------------------------------------------------------------------------------------------*/
     public Nutritionist() {
     }
 
-    public Nutritionist(String id, int userType, String name, String lastName, int sex, String birthdate, String phone, String email, int yearsOfExperience, String professionalCard) {
+    public Nutritionist(String id, String userType, String name, String lastName,
+            String sex, String birthdate, String phone, String email, String yearsOfExperience, String professionalCard) {
         super(id, userType, name, lastName, sex, birthdate, phone, email);
         this.yearsOfExperience = yearsOfExperience;
         this.professionalCard = professionalCard;
     }
 
     /* ----------- METHODS ------------------------------------------------------------------------------------------------------*/
-    /* ----------- SETTERS & GETTERS --------------------------------------------------------------------------------------------*/
+    
+    public void listNutritionist() throws Exception {
+        System.out.println("\nLISTA DE NUTRICIONISTAS ");//(Default: (user: jul psw: 1234))");
+        System.out.println("------------------\n");
 
-    public int getYearsOfExperience() {
+        System.out.println(getListOfNutritionistsData());
+
+    }
+    
+    @Override
+    public void saveData() throws Exception { //Save only User profile
+
+        String tempId = getId();
+        String tempUserType = getUserType();
+        String tempName = getName();
+        String tempLastname = getLastName();
+        String tempSex = getSex();
+        String tempBirthday = getBirthdate();
+        String tempPhone = getPhone();
+        String tempEmail = getEmail();
+        String tempYearsExperience = getYearsOfExperience();
+        String tempProfessionalCard = getProfessionalCard();
+
+        try (FileWriter fw = new FileWriter(nameDoc, true);
+                PrintWriter writeTXT = new PrintWriter(fw)) {
+            //Login.deleteUser(user);
+            writeTXT.print(Arrays.toString(encrypt(tempId)));
+            writeTXT.print("\t");
+            writeTXT.print(Arrays.toString(encrypt(tempUserType)));
+            writeTXT.print("\t");
+            writeTXT.print(Arrays.toString(encrypt(tempName)));
+            writeTXT.print("\t");
+            writeTXT.print(Arrays.toString(encrypt(tempLastname)));
+            writeTXT.print("\t");
+            writeTXT.print(Arrays.toString(encrypt(tempSex)));
+            writeTXT.print("\t");
+            writeTXT.print(Arrays.toString(encrypt(tempBirthday)));
+            writeTXT.print("\t");
+            writeTXT.print(Arrays.toString(encrypt(tempPhone)));
+            writeTXT.print("\t");
+            writeTXT.print(Arrays.toString(encrypt(tempEmail)));
+            writeTXT.print("\t");
+            writeTXT.print(Arrays.toString(encrypt(tempYearsExperience)));
+            writeTXT.print("\t");
+            writeTXT.println(Arrays.toString(encrypt(tempProfessionalCard)));
+
+            fw.close();
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    /* ----------- SETTERS & GETTERS --------------------------------------------------------------------------------------------*/
+    public String getYearsOfExperience() {
         return yearsOfExperience;
     }
 
-    public void setYearsOfExperience(int yearsOfExperience) {
+    public void setYearsOfExperience(String yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
     }
 
@@ -44,7 +99,6 @@ public class Nutritionist extends User{
         this.professionalCard = professionalCard;
     }
 
-    
-    
-    
+   
+
 }

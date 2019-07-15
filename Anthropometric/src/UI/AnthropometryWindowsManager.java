@@ -5,6 +5,7 @@
  */
 package UI;
 
+import data.Nutritionist;
 import data.Patient;
 import data.User;
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class AnthropometryWindowsManager extends javax.swing.JFrame {
                 case '1':
                     System.out.println("Sección -LOGIN-\n");
                     login.logIn();
-                    //login.deleteUser("jbarrantes");
+                    //login.deleteDataUser("jbarrantes");
                     break;
                 case '2':
                     System.out.println("Sección -REGISTRARSE-\n");
@@ -127,8 +128,8 @@ public class AnthropometryWindowsManager extends javax.swing.JFrame {
 
         }//End While sesion
 
-        if (login.isActiveSession() == true) {
-            System.out.println("\nANTHROPOMETRIC");
+        while(login.isActiveSession() == true) {
+            System.out.println("\nBODYMETRIC");
             System.out.println("\n1. Pacientes");
             System.out.println("2. Mediciones");
             System.out.println("3. Salir.");
@@ -139,11 +140,15 @@ public class AnthropometryWindowsManager extends javax.swing.JFrame {
                 case '1':
                     System.out.println("\nSección -Pacientes-");
                     
-                    Patient patient = new Patient("1062085362", 1, "Julian", "Castro", 1, "08/11/1993",
-                            "3059117035", "juacastropa@unal.edu.co", 25, 0);
+                    Patient patient = new Patient("1062085362", "1", "Julian", "Castro", "1", "08/11/1993",
+                            "3059117035", "juacastropa@unal.edu.co", "25", "0");
                     patient.saveData();
-                    patient.getListUserProfile();
-                    //patient.listPatients();
+                    patient.getListOfPatientData();
+                    
+                    Nutritionist nutritionist = new Nutritionist("1061456492", "0", "Gabriela", "Rodríguez", "0",
+                            "14/09/1997", "3222294208", "grodriguez@unal.edu.co", "22", login.createIdentifier());
+                    nutritionist.saveData();
+                    nutritionist.getListOfNutritionistsData();
                     break;
                 case '2':
                     System.out.println("\nSección -Mediciones-");
@@ -178,8 +183,8 @@ public class AnthropometryWindowsManager extends javax.swing.JFrame {
         /*//DELETE
         System.out.print("Ingrese usuario a eliminar: ");
         String user = keyboard.nextLine();
-        login.deleteUser(user);
-        login.deleteUser("admin");//*/
+        login.deleteDataUser(user);
+        login.deleteDataUser("admin");//*/
         //READ
         //System.out.println("Usuario: " + login.getUser() + "  Contraseña: " + login.getPassword() + " Identificación: " + login.getId());
         
