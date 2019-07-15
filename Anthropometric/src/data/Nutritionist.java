@@ -2,10 +2,12 @@
 package data;
 
 /*
+ * @author ANONYMOUS
  * @author JULIAN C
  * @author DANIEL R
  * @author JUAN B
  */
+
 public class Nutritionist extends User{
 
     private int yearsOfExperience;
@@ -13,13 +15,33 @@ public class Nutritionist extends User{
     
     /* ----------- BUILDER ------------------------------------------------------------------------------------------------------*/    
 
-    public Nutritionist(String user, String password, String email, boolean userType) {
-        super(user, password, email, userType);
+    public Nutritionist() {
     }
-    
-    
+
+    public Nutritionist(String id, boolean userType, String name, String lastName, int sex, String birthdate, String phone, String email, int yearsOfExperience, String professionalCard) {
+        super(id, userType, name, lastName, sex, birthdate, phone, email);
+        this.yearsOfExperience = yearsOfExperience;
+        this.professionalCard = professionalCard;
+    }
+
     /* ----------- METHODS ------------------------------------------------------------------------------------------------------*/
     /* ----------- SETTERS & GETTERS --------------------------------------------------------------------------------------------*/
+
+    public int getYearsOfExperience() {
+        return yearsOfExperience;
+    }
+
+    public void setYearsOfExperience(int yearsOfExperience) {
+        this.yearsOfExperience = yearsOfExperience;
+    }
+
+    public String getProfessionalCard() {
+        return professionalCard;
+    }
+
+    public void setProfessionalCard(String professionalCard) {
+        this.professionalCard = professionalCard;
+    }
 
     
     

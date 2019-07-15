@@ -11,18 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import logicBusiness.CalculateAnthropometry;
+import logicBusiness.ExportData;
 import logicBusiness.Login;
 
-/**
- *
+/*
+ * @author ANONYMOUS
  * @author JULIAN C
+ * @author DANIEL R
+ * @author JUAN B
  */
-public class WindowsManager extends javax.swing.JFrame {
+public class AnthropometryWindowsManager extends javax.swing.JFrame {
 
     /**
      * Creates new form WindowsManager
      */
-    public WindowsManager() {
+    public AnthropometryWindowsManager() {
         initComponents();
     }
 
@@ -41,11 +44,11 @@ public class WindowsManager extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 633, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 342, Short.MAX_VALUE)
         );
 
         pack();
@@ -68,39 +71,64 @@ public class WindowsManager extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(WindowsManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AnthropometryWindowsManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(WindowsManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AnthropometryWindowsManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(WindowsManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AnthropometryWindowsManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(WindowsManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AnthropometryWindowsManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new WindowsManager().setVisible(true);
+                new AnthropometryWindowsManager().setVisible(false); //Cambiar a true para ver
             }
         });
-        
-        
-        
+
         // ---------------------------------------------------------------------
-        
         char opcion;
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("\nANTHROPOMETRIC");
         Login login = new Login();
         List<User> userList = new ArrayList<>();
 
-        while (login.validateLogin() == false) {
-            //login.validateLogin();//verificar el usuario y contraseña
+        while (login.isActiveSession() == false) {
 
-            
-            if(login.validateLogin() == true){
-                System.out.println("\nANTHROPOMETRIC");
+            System.out.println("\nBODYMETRIC");
+            System.out.println("\n1. Iniciar sesión");
+            System.out.println("2. Registrarse");
+            System.out.println("3. Salir.");
+            System.out.print("\nOpcion: ");
+
+            opcion = keyboard.next().charAt(0);
+            switch (opcion) {
+                case '1':
+                    System.out.println("Sección -LOGIN-\n");
+                    login.logIn();
+                    //login.deleteUser("jbarrantes");
+                    break;
+                case '2':
+                    System.out.println("Sección -REGISTRARSE-\n");
+                    login.signUp();
+                    break;
+                case '3':
+                    login.exit();
+                    break;
+
+                default:
+                    System.out.println("Opción inválida.");
+                    break;
+            }
+
+        }//End While sesion
+
+        if (login.isActiveSession() == true) {
+            System.out.println("\nANTHROPOMETRIC");
             System.out.println("\n1. Pacientes");
             System.out.println("2. Mediciones");
             System.out.println("3. Salir.");
@@ -109,10 +137,10 @@ public class WindowsManager extends javax.swing.JFrame {
             opcion = keyboard.next().charAt(0);
             switch (opcion) {
                 case '1':
-                    System.out.println("Sección -Pacientes-");
+                    System.out.println("\nSección -Pacientes-");
                     break;
                 case '2':
-                    System.out.println("Sección -Mediciones-");
+                    System.out.println("\nSección -Mediciones-");
                     break;
                 case '3':
                     login.exit();
@@ -120,13 +148,35 @@ public class WindowsManager extends javax.swing.JFrame {
                     break;
 
                 default:
-                    System.out.println("Opción inválida.");
+                    System.out.println("\nOpción inválida.");
                     break;
             }
-            }
-            
-        }//End While sesion
-
+        }//*/
+        
+        //C-R-U-D
+        //CREATE
+        //login.signUp();
+        //login.saveUser("admin", "password", "id");
+        //login.saveUser("yo", "password", "");
+        //UPDATE
+        //login.setId("1062085362");
+        /*System.out.print("Ingrese contraseña nueva: ");
+        String password = keyboard.nextLine();
+        System.out.print("Ingrese usuario nueva: ");
+        String user = keyboard.nextLine();
+        password = password.replaceAll(" ", "").trim();
+        keyboard.nextLine();
+        login.setUser(user);
+        login.setPassword(password);
+        login.saveUser(login.getUser(), password, login.getId());*/
+ /*//DELETE
+        System.out.print("Ingrese usuario a eliminar: ");
+        String user = keyboard.nextLine();
+        login.deleteUser(user);
+        login.deleteUser("admin");//*/
+        //READ
+        //System.out.println("Usuario: " + login.getUser() + "  Contraseña: " + login.getPassword() + " Identificación: " + login.getId());
+        /*
         //-------------- Bloque Pruebas -------------------------------------------//
         userList.add(new User("juacastropa", "1234", "juacastropa@unal.edu.co", false));
         userList.add(new Patient("julianscastro", "4321", "julians993@gmail.com", true));
@@ -142,7 +192,7 @@ public class WindowsManager extends javax.swing.JFrame {
         System.out.print("\nIngrese sexo (1)Femenino (2) Masculino: ");
         String sex = null;
 
-        opcion = keyboard.next().charAt(0);
+        //opcion = keyboard.next().charAt(0);
         opcion = '2';
         switch (opcion) {
             case '1':
@@ -160,9 +210,9 @@ public class WindowsManager extends javax.swing.JFrame {
         }
 
         System.out.print("Ingrese edad: ");
-        /*keyboard.nextLine();
+        keyboard.nextLine();
         String stringAge = keyboard.nextLine();
-        int age = Integer.parseInt(stringAge);*/
+        //int age = Integer.parseInt(stringAge);
         int age = 25;
         System.out.println(age);
 
@@ -190,7 +240,8 @@ public class WindowsManager extends javax.swing.JFrame {
         ca.predictionTotalBodyMass(basicMeasures.getPeso(), skinMass, adiposeMass, muscleMass, boneMass, residualMass);
 
         //-------------- Fin Bloque Pruebas -------------------------------------------//
-    }
+        //*/
+    }// End of main
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
