@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import logicBusiness.CalculateAnthropometry;
-import logicBusiness.ExportData;
 import logicBusiness.Login;
 
 /*
@@ -91,7 +90,8 @@ public class AnthropometryWindowsManager extends javax.swing.JFrame {
             }
         });
 
-        // ---------------------------------------------------------------------
+        /*---------------------------------------------------------------------*/
+        
         char opcion;
         Scanner keyboard = new Scanner(System.in);
         Login login = new Login();
@@ -138,9 +138,16 @@ public class AnthropometryWindowsManager extends javax.swing.JFrame {
             switch (opcion) {
                 case '1':
                     System.out.println("\nSección -Pacientes-");
+                    
+                    Patient patient = new Patient("1062085362", 1, "Julian", "Castro", 1, "08/11/1993",
+                            "3059117035", "juacastropa@unal.edu.co", 25, 0);
+                    patient.saveData();
+                    patient.getListUserProfile();
+                    //patient.listPatients();
                     break;
                 case '2':
                     System.out.println("\nSección -Mediciones-");
+                    //getMeasurements();
                     break;
                 case '3':
                     login.exit();
@@ -156,32 +163,35 @@ public class AnthropometryWindowsManager extends javax.swing.JFrame {
         //C-R-U-D
         //CREATE
         //login.signUp();
-        //login.saveUser("admin", "password", "id");
-        //login.saveUser("yo", "password", "");
+        //login.saveData("admin", "password", "id");
+        //login.saveData("yo", "password", "");
         //UPDATE
         //login.setId("1062085362");
         /*System.out.print("Ingrese contraseña nueva: ");
         String password = keyboard.nextLine();
-        System.out.print("Ingrese usuario nueva: ");
+        System.out.print("Ingrese usuario nuevo: ");
         String user = keyboard.nextLine();
         password = password.replaceAll(" ", "").trim();
-        keyboard.nextLine();
         login.setUser(user);
         login.setPassword(password);
-        login.saveUser(login.getUser(), password, login.getId());*/
- /*//DELETE
+        login.saveData(login.getUser(), password, login.getId());*/
+        /*//DELETE
         System.out.print("Ingrese usuario a eliminar: ");
         String user = keyboard.nextLine();
         login.deleteUser(user);
         login.deleteUser("admin");//*/
         //READ
         //System.out.println("Usuario: " + login.getUser() + "  Contraseña: " + login.getPassword() + " Identificación: " + login.getId());
-        /*
+        
+        
+        
         //-------------- Bloque Pruebas -------------------------------------------//
+        /*
         userList.add(new User("juacastropa", "1234", "juacastropa@unal.edu.co", false));
         userList.add(new Patient("julianscastro", "4321", "julians993@gmail.com", true));
         userList.add(new Patient("jbarrantes", "5678", "jbrrantes@unal.edu.co", false));
         userList.add(new User("drobayo", "9876", "drobayo@unal.edu.co", true));
+        
 
         System.out.println("\nLista de usuarios por tipo de perfil");
         System.out.println("-----------------------------------");
@@ -239,8 +249,9 @@ public class AnthropometryWindowsManager extends javax.swing.JFrame {
         CalculateAnthropometry ca = new CalculateAnthropometry();
         ca.predictionTotalBodyMass(basicMeasures.getPeso(), skinMass, adiposeMass, muscleMass, boneMass, residualMass);
 
-        //-------------- Fin Bloque Pruebas -------------------------------------------//
-        //*/
+        //-------------- Fin Bloque Pruebas -------------------------------------------//*/
+        
+        
     }// End of main
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

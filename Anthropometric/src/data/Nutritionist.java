@@ -12,13 +12,14 @@ public class Nutritionist extends User{
 
     private int yearsOfExperience;
     private String professionalCard;
+    Patient patient = new Patient();
     
     /* ----------- BUILDER ------------------------------------------------------------------------------------------------------*/    
 
     public Nutritionist() {
     }
 
-    public Nutritionist(String id, boolean userType, String name, String lastName, int sex, String birthdate, String phone, String email, int yearsOfExperience, String professionalCard) {
+    public Nutritionist(String id, int userType, String name, String lastName, int sex, String birthdate, String phone, String email, int yearsOfExperience, String professionalCard) {
         super(id, userType, name, lastName, sex, birthdate, phone, email);
         this.yearsOfExperience = yearsOfExperience;
         this.professionalCard = professionalCard;

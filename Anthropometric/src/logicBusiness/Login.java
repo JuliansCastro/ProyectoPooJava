@@ -16,16 +16,16 @@ import javax.crypto.spec.SecretKeySpec;
  * @author DANIEL R
  * @author JUAN B
  */
-public class Login extends User {
+public class Login extends User implements ExportData{
 
-    private final String nameDoc = "LOGIN.txt";
+    private final String nameDoc = "login.txt";
     private String answer;
     private static int failedAttempt = 0;
     private boolean activeSession = false;
     private final HashMap<String, String[]> userList = new HashMap<>();
     private final Scanner keyboard = new Scanner(System.in);
     private BufferedReader bufferRead = null;
-    private final ExportData exportData = null;
+
     //private User user = new User(user, password);
 
     /* ----------- BUILDER -----------------------------------------------------*/
@@ -33,45 +33,6 @@ public class Login extends User {
     }
 
     /* ----------- METHODS -----------------------------------------------------*/
-    public void readDatabase() throws IOException, Exception {
-        try {
-            bufferRead = new BufferedReader(new FileReader(nameDoc));
-            String readTextLine, readUser, readPassword, readId;
-
-            while ((readTextLine = bufferRead.readLine()) != null) {
-
-                String[] dataUserArray = readTextLine.split("\t");
-
-                readUser = dataUserArray[0];
-                readUser = decrypt(readUser);
-
-                readPassword = dataUserArray[1];
-                readPassword = decrypt(readPassword);
-
-                readId = dataUserArray[2];
-                readId = decrypt(readId);
-
-                String[] userValue = {readPassword, readId};
-
-                userList.put(readUser, userValue);
-
-                System.out.printf("Usuario: %s\t", readUser);
-                System.out.printf("Contraseña: %s\t", readPassword);
-                System.out.printf("Identificación: %s\n", readId);
-
-            }//End while
-
-        } catch (FileNotFoundException exp) {
-            System.out.println("Base de datos no encontrada. Se ha creado una nueva.");
-            exportData.createFile(nameDoc);
-
-            System.out.println("\nCree un usuario por favor.");
-            signUp();
-            readDatabase();
-            //System.exit(0);// acaba el programa
-        }
-
-    }
 
     public void logIn() throws IOException, Exception {
         readDatabase();
@@ -123,7 +84,7 @@ public class Login extends User {
 
     public void signUp() throws Exception {
         readDatabase();
-        String newUser = "", newPassword = "", newId = "", exit = "";
+        String newUser = "", newPassword = "", newId, exit = "";
 
         System.out.println("\nUSUARIO NUEVO");
         System.out.println("------------------");
@@ -158,9 +119,9 @@ public class Login extends User {
             if (exit.equalsIgnoreCase("Y")) {
 
                 if (newId.equalsIgnoreCase("")) {
-                    saveUser(newUser, newPassword, createIdentifier());
+                    saveData(newUser, newPassword, createIdentifier());
                 } else {
-                    saveUser(newUser, newPassword, newId);
+                    saveData(newUser, newPassword, newId);
                 }
 
                 System.out.println("\nGracias por registrase \'" + newUser + "\'\n");
@@ -173,8 +134,49 @@ public class Login extends User {
 
         exit();
     }
+    
+    @Override
+    public void readDatabase() throws IOException, Exception { //Read only login data
+        try {
+            bufferRead = new BufferedReader(new FileReader(nameDoc));
+            String readTextLine, readUser, readPassword, readId;
 
-    public void saveUser(String user, String password, String id) throws Exception {
+            while ((readTextLine = bufferRead.readLine()) != null) {
+
+                String[] dataUserArray = readTextLine.split("\t");
+
+                readUser = dataUserArray[0];
+                readUser = decrypt(readUser);
+
+                readPassword = dataUserArray[1];
+                readPassword = decrypt(readPassword);
+
+                readId = dataUserArray[2];
+                readId = decrypt(readId);
+
+                String[] userValue = {readPassword, readId};
+                userList.put(readUser, userValue);
+
+                System.out.printf("Usuario: %s\t", readUser);
+                System.out.printf("Contraseña: %s\t", readPassword);
+                System.out.printf("Identificación: %s\n", readId);
+            }//End while
+
+        } catch (FileNotFoundException exp) {
+            System.out.println("Base de datos no encontrada. Se ha creado una nueva.");
+            createFile(nameDoc);
+
+            System.out.println("\nCree un usuario por favor.");
+            signUp();
+            readDatabase();
+            //System.exit(0);// acaba el programa
+        }
+
+    }
+
+    
+    @Override
+    public void saveData(String user, String password, String id) throws Exception {//Save only User profile
         if (id.equals("")) {
             id = createIdentifier();
         }
@@ -193,7 +195,7 @@ public class Login extends User {
             System.out.println(ex.getMessage());
         }
     }
-
+    
     public void deleteUser(String userToRemove) throws Exception {
         userToRemove = userToRemove.toLowerCase();
 
@@ -233,7 +235,7 @@ public class Login extends User {
         System.exit(0);
     }
 
-    public String createIdentifier() {
+    public static String createIdentifier() {
         String identifier;
         char[] identifierArray = new char[10];
         char[] characters = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -250,6 +252,8 @@ public class Login extends User {
         return identifier = new String(identifierArray);
     }
 
+    /*
+    @Override
     public byte[] encrypt(String unencrypted) throws Exception {
         final byte[] bytes = unencrypted.getBytes("UTF-8");
         final Cipher aes = getCipher(true);
@@ -257,6 +261,7 @@ public class Login extends User {
         return encrypted;
     }
 
+    @Override
     public String decrypt(String encrypted) throws Exception {
         byte[] encrypt = asBytes(encrypted);
         final Cipher aes = getCipher(false);
@@ -265,7 +270,8 @@ public class Login extends User {
         return unencrypted;
     }
 
-    private Cipher getCipher(boolean toEncrypt) throws Exception {
+    @Override
+    public Cipher getCipher(boolean toEncrypt) throws Exception {
         final String keyphrase = "EsteProyectoMeHaEnseñadoMuchoPeroCasiNoHeDormido_áÁéÉíÍóÓúÚüÜñÑ1234567890!#%$&()=%_MI_HUEVO_DE_PASCUA!_";
         final MessageDigest digest = MessageDigest.getInstance("SHA");
         digest.update(keyphrase.getBytes("UTF-8"));
@@ -281,6 +287,7 @@ public class Login extends User {
         return aes;
     }
 
+    @Override
     public byte[] asBytes(String convertString) {
         String temporalString;
 
@@ -295,6 +302,8 @@ public class Login extends User {
         //System.out.println(Arrays.toString(byteReadUser));
         return byteReadUser;
     }
+    
+    //*/
 
     /* ----------- SETTERS & GETTERS ------------------------------------------*/
     public boolean isActiveSession() {
@@ -303,6 +312,13 @@ public class Login extends User {
 
     public void setActiveSession(boolean activeSession) {
         this.activeSession = activeSession;
+    }
+
+    /* ------------------------------------------------------------------------*/
+    
+    @Override
+    public void saveData() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
