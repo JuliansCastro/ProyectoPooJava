@@ -89,6 +89,36 @@ public class Patient extends User implements ExportData {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+        
+        /*
+        try (FileWriter fw = new FileWriter("patientDataTestFile.txt", true);
+                PrintWriter writeTXT = new PrintWriter(fw)) {
+            //Login.deleteUser(user);
+            writeTXT.print(tempId);
+            writeTXT.print("\t");
+            writeTXT.print(tempUserType);
+            writeTXT.print("\t");
+            writeTXT.print(tempName);
+            writeTXT.print("\t");
+            writeTXT.print(tempLastname);
+            writeTXT.print("\t");
+            writeTXT.print(tempSex);
+            writeTXT.print("\t");
+            writeTXT.print(tempBirthday);
+            writeTXT.print("\t");
+            writeTXT.print(tempPhone);
+            writeTXT.print("\t");
+            writeTXT.print(tempEmail);
+            writeTXT.print("\t");
+            writeTXT.print(tempAge);
+            writeTXT.print("\t");
+            writeTXT.println(tempSport);
+
+            fw.close();
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }*/
     }
 
 

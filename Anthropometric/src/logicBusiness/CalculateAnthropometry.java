@@ -6,7 +6,6 @@ package logicBusiness;
  * @author DANIEL R
  * @author JUAN B
  */
-
 public class CalculateAnthropometry extends AnthropometricMeasurement {
 
     /* ----------- METHODS ------------------------------------------------------------------------------------------------------*/
@@ -133,20 +132,18 @@ public class CalculateAnthropometry extends AnthropometricMeasurement {
         double totalBodyMass, predictiveTotalBodyMass, skinMassAdjusted, adiposeMassAdjusted;
         double muscleMassAdjusted, totalBoneMassAdjusted, residualMassAdjusted, predictiveTotalBodyMassLessActualWeight;
 
-        
         predictiveTotalBodyMass = skinMass + adiposeMass + muscleMass + totalBoneMass + residualMass;
         //System.out.println(skinMass +"\n" + adiposeMass +"\n" +  muscleMass +"\n" + totalBoneMass +"\n" + residualMass);
-        
-        predictiveTotalBodyMassLessActualWeight = predictiveTotalBodyMass-weight;
+
+        predictiveTotalBodyMassLessActualWeight = predictiveTotalBodyMass - weight;
         //System.out.println(predictiveTotalBodyMassLessActualWeight);
-        
-        
-        skinMassAdjusted = skinMass -(predictiveTotalBodyMassLessActualWeight*skinMass/predictiveTotalBodyMass);
-        adiposeMassAdjusted = adiposeMass - (predictiveTotalBodyMassLessActualWeight*adiposeMass/predictiveTotalBodyMass);
-        muscleMassAdjusted = muscleMass - (predictiveTotalBodyMassLessActualWeight*muscleMass/predictiveTotalBodyMass);
-        totalBoneMassAdjusted = totalBoneMass - (predictiveTotalBodyMassLessActualWeight*totalBoneMass/predictiveTotalBodyMass);
-        residualMassAdjusted = residualMass - (predictiveTotalBodyMassLessActualWeight*residualMass/predictiveTotalBodyMass);
-        
+
+        skinMassAdjusted = skinMass - (predictiveTotalBodyMassLessActualWeight * skinMass / predictiveTotalBodyMass);
+        adiposeMassAdjusted = adiposeMass - (predictiveTotalBodyMassLessActualWeight * adiposeMass / predictiveTotalBodyMass);
+        muscleMassAdjusted = muscleMass - (predictiveTotalBodyMassLessActualWeight * muscleMass / predictiveTotalBodyMass);
+        totalBoneMassAdjusted = totalBoneMass - (predictiveTotalBodyMassLessActualWeight * totalBoneMass / predictiveTotalBodyMass);
+        residualMassAdjusted = residualMass - (predictiveTotalBodyMassLessActualWeight * residualMass / predictiveTotalBodyMass);
+
         totalBodyMass = skinMassAdjusted + adiposeMassAdjusted + muscleMassAdjusted + totalBoneMassAdjusted + residualMassAdjusted;
         System.out.printf("Prediccion masa corporal total(Kg): %.2f %n", totalBodyMass);//predictiveTotalBodyMass);
         return totalBodyMass;
@@ -165,21 +162,79 @@ public class CalculateAnthropometry extends AnthropometricMeasurement {
     public CalculateAnthropometry() {
     }
 
-    public CalculateAnthropometry(double peso, double tallaAltura, double tallaSentado, double envergaduraBrazos) {
+    public CalculateAnthropometry(double peso, double tallaAltura, double tallaSentado,
+            double envergaduraBrazos) {
+
         super(peso, tallaAltura, tallaSentado, envergaduraBrazos);
     }
 
-    public CalculateAnthropometry(double pliegueTriceps, double pliegueSubescapular, double pliegueBiceps, double pliegueCrestaIliaca, double pliegueSupraespinal, double pliegueAbdominal, double pliegueAnteriorMuslo, double pliegueMedialPierna, double plieguePectoral) {
-        super(pliegueTriceps, pliegueSubescapular, pliegueBiceps, pliegueCrestaIliaca, pliegueSupraespinal, pliegueAbdominal, pliegueAnteriorMuslo, pliegueMedialPierna, plieguePectoral);
+    public CalculateAnthropometry(double pliegueTriceps, double pliegueSubescapular,
+            double pliegueBiceps, double pliegueCrestaIliaca, double pliegueSupraespinal,
+            double pliegueAbdominal, double pliegueAnteriorMuslo, double pliegueMedialPierna,
+            double plieguePectoral) {
+
+        super(pliegueTriceps, pliegueSubescapular, pliegueBiceps, pliegueCrestaIliaca,
+                pliegueSupraespinal, pliegueAbdominal, pliegueAnteriorMuslo,
+                pliegueMedialPierna, plieguePectoral);
     }
 
-    public CalculateAnthropometry(double perimetroCabeza, double perimetroCuello, double perimetroBrazoRelajado, double perimetroBrazoFlexionado, double perimetroAnteBrazo, double perimetroMuñeca, double perimetroToracicoMesoesternal, double perimetroAbdominalCinturaMinimo, double perimetroAbdominal, double perimetroGluteoCaderaMaximo, double perimetroMusloA1cm, double perimetroMusloTercioMedio, double perimetroPiernaMaximo, double perimetroTobilloMinimo) {
-        super(perimetroCabeza, perimetroCuello, perimetroBrazoRelajado, perimetroBrazoFlexionado, perimetroAnteBrazo, perimetroMuñeca, perimetroToracicoMesoesternal, perimetroAbdominalCinturaMinimo, perimetroAbdominal, perimetroGluteoCaderaMaximo, perimetroMusloA1cm, perimetroMusloTercioMedio, perimetroPiernaMaximo, perimetroTobilloMinimo);
+    public CalculateAnthropometry(double perimetroCabeza, double perimetroCuello,
+            double perimetroBrazoRelajado, double perimetroBrazoFlexionado,
+            double perimetroAnteBrazo, double perimetroMuñeca,
+            double perimetroToracicoMesoesternal, double perimetroAbdominalCinturaMinimo,
+            double perimetroAbdominal, double perimetroGluteoCaderaMaximo,
+            double perimetroMusloA1cm, double perimetroMusloTercioMedio,
+            double perimetroPiernaMaximo, double perimetroTobilloMinimo) {
+
+        super(perimetroCabeza, perimetroCuello, perimetroBrazoRelajado,
+                perimetroBrazoFlexionado, perimetroAnteBrazo, perimetroMuñeca,
+                perimetroToracicoMesoesternal, perimetroAbdominalCinturaMinimo,
+                perimetroAbdominal, perimetroGluteoCaderaMaximo, perimetroMusloA1cm,
+                perimetroMusloTercioMedio, perimetroPiernaMaximo, perimetroTobilloMinimo);
     }
 
-    public CalculateAnthropometry(double diametroBiacromial, double diametroAnteroPosteriorAbdominal, double diametroBiiliocrestal, double diametroTrasversoToraxMesoesternal, double diametroAnteroPosteriorToraxPecho, double diametroBiepicondileoHumeral, double diametroBiestiloideoMuñeca, double diametroBiepicondileoFemoral) {
-        super(diametroBiacromial, diametroAnteroPosteriorAbdominal, diametroBiiliocrestal, diametroTrasversoToraxMesoesternal, diametroAnteroPosteriorToraxPecho, diametroBiepicondileoHumeral, diametroBiestiloideoMuñeca, diametroBiepicondileoFemoral);
-    }
+    public CalculateAnthropometry(double diametroBiacromial,
+            double diametroAnteroPosteriorAbdominal, double diametroBiiliocrestal,
+            double diametroTrasversoToraxMesoesternal, double diametroAnteroPosteriorToraxPecho,
+            double diametroBiepicondileoHumeral, double diametroBiestiloideoMuñeca,
+            double diametroBiepicondileoFemoral) {
 
+        super(diametroBiacromial, diametroAnteroPosteriorAbdominal,
+                diametroBiiliocrestal, diametroTrasversoToraxMesoesternal,
+                diametroAnteroPosteriorToraxPecho, diametroBiepicondileoHumeral,
+                diametroBiestiloideoMuñeca, diametroBiepicondileoFemoral);
+    }
+    
+    //Constructor todas las mediciones
+    public CalculateAnthropometry(double peso, double tallaAltura, double tallaSentado,
+            double envergaduraBrazos, double pliegueTriceps, double pliegueSubescapular,
+            double pliegueBiceps, double pliegueCrestaIliaca, double pliegueSupraespinal,
+            double pliegueAbdominal, double pliegueAnteriorMuslo, double pliegueMedialPierna,
+            double plieguePectoral, double perimetroCabeza, double perimetroCuello,
+            double perimetroBrazoRelajado, double perimetroBrazoFlexionado,
+            double perimetroAnteBrazo, double perimetroMuñeca, double perimetroToracicoMesoesternal,
+            double perimetroAbdominalCinturaMinimo, double perimetroAbdominal,
+            double perimetroGluteoCaderaMaximo, double perimetroMusloA1cm, 
+            double perimetroMusloTercioMedio, double perimetroPiernaMaximo,
+            double perimetroTobilloMinimo, double diametroBiacromial, 
+            double diametroAnteroPosteriorAbdominal, double diametroBiiliocrestal,
+            double diametroTrasversoToraxMesoesternal, double diametroAnteroPosteriorToraxPecho,
+            double diametroBiepicondileoHumeral, double diametroBiestiloideoMuñeca,
+            double diametroBiepicondileoFemoral) {
+        
+        super(peso, tallaAltura, tallaSentado, envergaduraBrazos, pliegueTriceps,
+                pliegueSubescapular, pliegueBiceps, pliegueCrestaIliaca,
+                pliegueSupraespinal, pliegueAbdominal, pliegueAnteriorMuslo, 
+                pliegueMedialPierna, plieguePectoral, perimetroCabeza, perimetroCuello,
+                perimetroBrazoRelajado, perimetroBrazoFlexionado, perimetroAnteBrazo,
+                perimetroMuñeca, perimetroToracicoMesoesternal, perimetroAbdominalCinturaMinimo,
+                perimetroAbdominal, perimetroGluteoCaderaMaximo, perimetroMusloA1cm,
+                perimetroMusloTercioMedio, perimetroPiernaMaximo, perimetroTobilloMinimo,
+                diametroBiacromial, diametroAnteroPosteriorAbdominal, diametroBiiliocrestal,
+                diametroTrasversoToraxMesoesternal, diametroAnteroPosteriorToraxPecho,
+                diametroBiepicondileoHumeral, diametroBiestiloideoMuñeca,
+                diametroBiepicondileoFemoral);
+    }
     /* ----------- SETTERS & GETTERS --------------------------------------------------------------------------------------------*/
+
 }

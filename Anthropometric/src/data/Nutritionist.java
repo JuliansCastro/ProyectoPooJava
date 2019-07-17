@@ -77,10 +77,37 @@ public class Nutritionist extends User {
             writeTXT.println(Arrays.toString(encrypt(tempProfessionalCard)));
 
             fw.close();
-
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+        /*
+        try (FileWriter fw = new FileWriter("nutritionistDataTestFile.txt", true);
+                PrintWriter writeTXT = new PrintWriter(fw)) {
+            //Login.deleteUser(user);
+            writeTXT.print(tempId);
+            writeTXT.print("\t");
+            writeTXT.print(tempUserType);
+            writeTXT.print("\t");
+            writeTXT.print(tempName);
+            writeTXT.print("\t");
+            writeTXT.print(tempLastname);
+            writeTXT.print("\t");
+            writeTXT.print(tempSex);
+            writeTXT.print("\t");
+            writeTXT.print(tempBirthday);
+            writeTXT.print("\t");
+            writeTXT.print(tempPhone);
+            writeTXT.print("\t");
+            writeTXT.print(tempEmail);
+            writeTXT.print("\t");
+            writeTXT.print(tempYearsExperience);
+            writeTXT.print("\t");
+            writeTXT.println(tempProfessionalCard);
+
+            fw.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }*/
     }
     /* ----------- SETTERS & GETTERS --------------------------------------------------------------------------------------------*/
     public String getYearsOfExperience() {

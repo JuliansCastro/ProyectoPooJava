@@ -1,11 +1,15 @@
 package logicBusiness;
 
+import UI.LoginScreen;
+import UI.UserRegisterScreen;
 import data.User;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.Map;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /*
  * @author ANONYMOUS
@@ -13,13 +17,14 @@ import java.util.Map;
  * @author DANIEL R
  * @author JUAN B
  */
-public class Login extends User{
+public class Login extends User {
 
     private final String nameDoc = "login.txt";
     private String answer;
     private static int failedAttempt = 0;
     private boolean activeSession = false;
-    private final HashMap<String, String[]> userLoginList = new HashMap<>();
+    private boolean thereIsAUser,thereIsADatabase;
+    private HashMap<String, String[]> userLoginList = new HashMap<>();
     private final Scanner keyboard = new Scanner(System.in);
     private BufferedReader bufferRead = null;
 
@@ -30,6 +35,42 @@ public class Login extends User{
     }
 
     /* ----------- METHODS -----------------------------------------------------*/
+    public void logIn(String userLogin, String passwordLogin) throws IOException, Exception {
+        readDatabase();
+
+        if (userLoginList.containsKey(userLogin)) {
+            String[] userLoginData = userLoginList.get(userLogin);
+            setUser(userLogin);
+
+            if (userLoginData[2].equals(passwordLogin) && userLoginData[0] != null) {
+                setPassword(passwordLogin);
+                setId(userLoginData[0]);
+                answer = "\nBienvenido " + userLogin.toUpperCase();
+                failedAttempt = 0; //reinicia los intentos por si se hace un logout no lo saque del programa
+                setActiveSession(true);
+            } else {
+                failedAttempt++;
+                if (failedAttempt == 1) {
+                    answer = "Usted a tenido " + failedAttempt + " intento fallido";
+                    answer = answer.toUpperCase();
+                    setActiveSession(false);
+                } else {
+                    answer = "Usted a tenido " + failedAttempt + " intentos fallidos";
+                    answer = answer.toUpperCase();
+                    setActiveSession(false);
+                }
+            }
+        }else{
+            setThereIsAUser(false);
+        }
+
+        System.out.println(answer);
+        if (failedAttempt > 2) {//saca del programa si hay 3 intentos fallidos
+            System.out.println("Muchos intentos fallidos. Pida ayuda al administrador");
+            JOptionPane.showMessageDialog(null, "Muchos intentos fallidos. Pida ayuda al administrador");
+            //System.exit(0);
+        }
+    }
 
     public void logIn() throws IOException, Exception {
         readDatabase();
@@ -45,6 +86,7 @@ public class Login extends User{
         System.out.print("Ingrese clave: ");
         passwordLogin = keyboard.nextLine();
         passwordLogin = passwordLogin.replaceAll(" ", "").trim();
+        //*/
 
         if (userLoginList.containsKey(userLogin)) {
             String[] userLoginData = userLoginList.get(userLogin);
@@ -132,11 +174,12 @@ public class Login extends User{
 
         exit();
     }
-    
+
     @Override
     public void readDatabase() throws IOException, Exception { //Read only login data
         try {
             bufferRead = new BufferedReader(new FileReader(nameDoc));
+            setThereIsADatabase(true);
             String readTextLine, readUser, readPassword, readId;
 
             while ((readTextLine = bufferRead.readLine()) != null) {
@@ -161,18 +204,31 @@ public class Login extends User{
             }//End while
 
         } catch (FileNotFoundException exp) {
+            
             System.out.println("Base de datos no encontrada. Se ha creado una nueva.");
+            
+            JOptionPane.showMessageDialog(null, "Base de datos no encontrada.\n"
+                    + " Se ha creado una nueva.");
             createFile(nameDoc);
 
-            System.out.println("\nCree un usuario por favor.");
-            signUp();
+            System.out.println("\nRegistrese por favor.");
+            /*
+            new LoginScreen().setVisible(false);
+            
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                //LoginScreen.
+                UserRegisterScreen ur = new UserRegisterScreen();
+                ur.setVisible(true);
+                ur.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                
+            });*/
+            //signUp();
             readDatabase();
             //System.exit(0);// acaba el programa
         }
 
     }
 
-    
     @Override
     public void saveData(String user, String password, String id) throws Exception {//Save only User profile
         if (id.equals("")) {
@@ -193,7 +249,7 @@ public class Login extends User{
             System.out.println(ex.getMessage());
         }
     }
-    
+
     @Override
     public void deleteDataUser(String userToRemove) throws Exception {
         userToRemove = userToRemove.toLowerCase();
@@ -234,8 +290,15 @@ public class Login extends User{
         System.exit(0);
     }
 
-
     /* ----------- SETTERS & GETTERS ------------------------------------------*/
+    public HashMap<String, String[]> getUserLoginList() {
+        return userLoginList;
+    }
+
+    public void setUserLoginList(HashMap<String, String[]> userLoginList) {
+        this.userLoginList = userLoginList;
+    }
+
     public boolean isActiveSession() {
         return activeSession;
     }
@@ -244,8 +307,25 @@ public class Login extends User{
         this.activeSession = activeSession;
     }
 
-    /* ------------------------------------------------------------------------*/
+    public boolean isThereIsAUser() {
+        return thereIsAUser;
+    }
+
+    public void setThereIsAUser(boolean thereIsAUser) {
+        this.thereIsAUser = thereIsAUser;
+    }
+
+    public boolean isThereIsADatabase() {
+        return thereIsADatabase;
+    }
+
+    public void setThereIsADatabase(boolean thereIsADatabase) {
+        this.thereIsADatabase = thereIsADatabase;
+    }
     
+    
+
+    /* ------------------------------------------------------------------------*/
     @Override
     public void saveData() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
