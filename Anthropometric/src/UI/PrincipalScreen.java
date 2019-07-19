@@ -22,7 +22,7 @@ public class PrincipalScreen extends javax.swing.JFrame {
      * Creates new form PrincipalScreen
      */
     HashMap<String, String[]> patients = null;
-    DefaultTableModel modelo;
+    DefaultTableModel tableModel;
 
     private String searchText = "";
 
@@ -49,7 +49,8 @@ public class PrincipalScreen extends javax.swing.JFrame {
 
     private void loadPatient(String searchId) {
         String[] titles = {"Nombre", "Apellido", "Antropometrías", "Acciones"};
-        modelo = new DefaultTableModel(null, titles);
+        tabla.setDefaultRenderer(Object.class, new Render());
+        tableModel = new DefaultTableModel(null, titles);
         Patient patient = new Patient();
 
         try {
@@ -75,9 +76,9 @@ public class PrincipalScreen extends javax.swing.JFrame {
                 registro[1] = lastname;
                 registro[2] = "Antropometria";
                 registro[3] = "Acciones";
-                modelo.addRow(registro);
+                tableModel.addRow(registro);
             }
-            this.tblPatients.setModel(modelo);
+            this.tblPatients.setModel(tableModel);
         } else {
 
             for (Map.Entry<String, String[]> entry : patients.entrySet()) {
@@ -87,15 +88,17 @@ public class PrincipalScreen extends javax.swing.JFrame {
                     registro[1] = lastname;
                     registro[2] = "Antropometria";
                     registro[3] = "Acciones";
-                    modelo.addRow(registro);
+                    tableModel.addRow(registro);
                 }else{
                     jLabelErrorSearchMessage.setText("*No existen datos del paciente");
                 }
             }
-            this.tblPatients.setModel(modelo);
+            this.tblPatients.setModel(tableModel);
         }
 
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
