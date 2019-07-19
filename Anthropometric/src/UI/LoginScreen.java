@@ -25,6 +25,7 @@ public class LoginScreen extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null); //To center window
         setResizable(false);
+        //jLabelLogin.setText("Hola");
         setIconImage(new ImageIcon(getClass().getResource("/resources/img/icono.jpg")).getImage());
 
         ((JPanel) getContentPane()).setOpaque(false);
@@ -59,6 +60,8 @@ public class LoginScreen extends javax.swing.JFrame {
         txtUser = new javax.swing.JTextField();
         btnSignUp = new javax.swing.JButton();
         btnLogIn = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabelErrorLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -156,6 +159,20 @@ public class LoginScreen extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelErrorLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelErrorLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanelLoginBoxLayout = new javax.swing.GroupLayout(jPanelLoginBox);
         jPanelLoginBox.setLayout(jPanelLoginBoxLayout);
         jPanelLoginBoxLayout.setHorizontalGroup(
@@ -167,25 +184,27 @@ public class LoginScreen extends javax.swing.JFrame {
                         .addComponent(titleBox_jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelLoginBoxLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelLoginBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelLoginBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanelUserPassBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)))))
+                        .addGroup(jPanelLoginBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSignUp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanelUserPassBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))))
                 .addGap(50, 50, 50))
         );
         jPanelLoginBoxLayout.setVerticalGroup(
             jPanelLoginBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLoginBoxLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(titleBox_jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
                 .addComponent(jPanelUserPassBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(btnLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSignUp)
-                .addGap(24, 24, 24))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -200,7 +219,7 @@ public class LoginScreen extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jPanelLoginBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -223,12 +242,20 @@ public class LoginScreen extends javax.swing.JFrame {
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
         // TODO add your handling code here:
+        //BORRAR
+        
+        PrincipalScreen pScreen = new PrincipalScreen();
+        pScreen.setVisible(true);
+        this.setVisible(false);
+        //BORRAR SOLO PRUEBA*/
+        
         user = txtUser.getText();
         user = user.replaceAll(" ", "").trim().toLowerCase();
         password = new String(txtPasswordField.getPassword());
 
         if ((user.equals("")) && (password.equals(""))) {
-            JOptionPane.showMessageDialog(rootPane, "Los campos no pueden estar vacíos");
+            jLabelErrorLogin.setText("*Los campos no pueden estar vacíos");
+            //JOptionPane.showMessageDialog(rootPane, "Los campos no pueden estar vacíos");
         } else {
 
             try {
@@ -240,21 +267,22 @@ public class LoginScreen extends javax.swing.JFrame {
             if (login.isActiveSession() == true) {
                 setVisible(false);
                 failedAttempt = 0;
-                //ShowPrincipalScreen
+                PrincipalScreen ps = new PrincipalScreen();
+                ps.setVisible(true);
+
             } else if (login.isThereIsAUser() == false) {
                 failedAttempt++;
-                JOptionPane.showMessageDialog(rootPane, "Es posible que el usuario no exista"
-                        + " pero inténtalo por "
-                        + failedAttempt + " vez");
-                if (failedAttempt > 1) {
-                    JOptionPane.showMessageDialog(rootPane, "Usuario no existe, resgistrese por favor.");
+                jLabelErrorLogin.setText("*Usuario y/o contraseña errados");
+                if (failedAttempt > 2) {
+                    JOptionPane.showMessageDialog(rootPane, "Si no tiene una cuenta,\n resgistrese por favor.");
                     setVisible(false);
                     UserRegisterScreen ur = new UserRegisterScreen();
                     ur.setVisible(true);
                     ur.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña errados");
+                jLabelErrorLogin.setText("*Usuario y/o contraseña errados");
+                //JOptionPane.showMessageDialog(null, "Usuario y/o contraseña errados");
                 System.out.println("Usuario y/o contraseña errados");
                 txtUser.requestFocus();
                 txtUser.setText("");
@@ -277,13 +305,13 @@ public class LoginScreen extends javax.swing.JFrame {
         char validate = (char) evt.getKeyCode();
         if (validate == evt.VK_ENTER) {
 
-            //System.out.println("se presiono la tecla Enter");
             user = txtUser.getText();
             user = user.replaceAll(" ", "").trim().toLowerCase();
             password = new String(txtPasswordField.getPassword());
 
             if ((user.equals("")) && (password.equals(""))) {
-                JOptionPane.showMessageDialog(rootPane, "Los campos no pueden estar vacíos");
+                jLabelErrorLogin.setText("*Los campos no pueden estar vacíos");
+                //JOptionPane.showMessageDialog(rootPane, "Los campos no pueden estar vacíos");
             } else {
 
                 try {
@@ -295,21 +323,21 @@ public class LoginScreen extends javax.swing.JFrame {
                 if (login.isActiveSession() == true) {
                     setVisible(false);
                     failedAttempt = 0;
-                    //ShowPrincipalScreen
+                    PrincipalScreen ps = new PrincipalScreen();
+                    ps.setVisible(true);
                 } else if (login.isThereIsAUser() == false) {
                     failedAttempt++;
-                    JOptionPane.showMessageDialog(rootPane, "Es posible que el usuario no exista"
-                            + " pero inténtalo por "
-                            + failedAttempt + " vez");
-                    if (failedAttempt > 1) {
-                        JOptionPane.showMessageDialog(rootPane, "Usuario no existe, resgistrese por favor.");
+                    jLabelErrorLogin.setText("*Usuario y/o contraseña errados");
+                    if (failedAttempt > 2) {
+                        JOptionPane.showMessageDialog(rootPane, "Si no tiene una cuenta,\n resgistrese por favor.");
                         setVisible(false);
                         UserRegisterScreen ur = new UserRegisterScreen();
                         ur.setVisible(true);
                         ur.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Usuario y/o contraseña errados");
+                    jLabelErrorLogin.setText("*Usuario y/o contraseña errados");
+                    //JOptionPane.showMessageDialog(null, "Usuario y/o contraseña errados");
                     System.out.println("Usuario y/o contraseña errados");
                     txtUser.requestFocus();
                     txtUser.setText("");
@@ -364,9 +392,11 @@ public class LoginScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogIn;
     private javax.swing.JButton btnSignUp;
+    private javax.swing.JLabel jLabelErrorLogin;
     private javax.swing.JLabel jLabelLogin;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelUsuario;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelLoginBox;
     private javax.swing.JPanel jPanelUserPassBox;
     private javax.swing.JPanel titleBox_jPanel;

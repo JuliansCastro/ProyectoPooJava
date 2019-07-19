@@ -18,7 +18,7 @@ import logicBusiness.Login;
  *
  * @author Satellite COREi3
  */
-public class UserRegisterScreen extends javax.swing.JFrame {
+public class EditUserProfile extends javax.swing.JFrame {
 
     /**
      * Creates new form UserRegisterScreen
@@ -28,12 +28,16 @@ public class UserRegisterScreen extends javax.swing.JFrame {
             phone = "", email = "", userType = "", birthday = "", sex = "",
             professionalCard = "", yearsExperience = "", age = "", athlete = "";
 
-    public UserRegisterScreen() {
+    public EditUserProfile() {
         initComponents();
+        
         setLocationRelativeTo(null);
+        txtId.enable(false);
+        cbxTypeUser.enable(false);
         setResizable(false);
-        btnSave.setVisible(false);
-        txtUser.requestFocus();
+        
+        //btnSave.setVisible(false);
+        txtPhone.requestFocus();
         jLabelAthlete.setVisible(false);
         rbtYesAthlete.setVisible(false);
         rbtNoAthlete.setVisible(false);
@@ -104,8 +108,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
         rbtYesAthlete = new javax.swing.JRadioButton();
         rbtNoAthlete = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
-        btnBackToLogin = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelBottonSave = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -117,16 +120,16 @@ public class UserRegisterScreen extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(102, 255, 102));
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Registro De Usuarios");
+        jLabel1.setText("Editar Perfil de usuario");
 
         javax.swing.GroupLayout jPanelSignUpTitleLayout = new javax.swing.GroupLayout(jPanelSignUpTitle);
         jPanelSignUpTitle.setLayout(jPanelSignUpTitleLayout);
         jPanelSignUpTitleLayout.setHorizontalGroup(
             jPanelSignUpTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelSignUpTitleLayout.createSequentialGroup()
-                .addGap(78, 78, 78)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSignUpTitleLayout.createSequentialGroup()
+                .addContainerGap(58, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
         jPanelSignUpTitleLayout.setVerticalGroup(
             jPanelSignUpTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -401,29 +404,15 @@ public class UserRegisterScreen extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnBackToLogin.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        btnBackToLogin.setText("< VOLVER A LOGIN");
-        btnBackToLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackToLoginActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnBackToLogin)
-                .addContainerGap(15, Short.MAX_VALUE))
+            .addGap(0, 202, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnBackToLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 56, Short.MAX_VALUE)
         );
 
         btnSave.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -439,18 +428,18 @@ public class UserRegisterScreen extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelBottonSaveLayout = new javax.swing.GroupLayout(jPanelBottonSave);
+        jPanelBottonSave.setLayout(jPanelBottonSaveLayout);
+        jPanelBottonSaveLayout.setHorizontalGroup(
+            jPanelBottonSaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBottonSaveLayout.createSequentialGroup()
                 .addContainerGap(11, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        jPanelBottonSaveLayout.setVerticalGroup(
+            jPanelBottonSaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBottonSaveLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -530,7 +519,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanelBottonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(154, 154, 154))))
         );
         JpanelSignUpLayout.setVerticalGroup(
@@ -541,12 +530,13 @@ public class UserRegisterScreen extends javax.swing.JFrame {
                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
                         .addComponent(jPanelSignUpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63)
-                        .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelUser)
-                                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(4, 4, 4)
                         .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -585,7 +575,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
                 .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelBottonSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -626,7 +616,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
             try {
                 login.readDatabase();
             } catch (Exception ex) {
-                Logger.getLogger(UserRegisterScreen.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
             }
             if ((login.getUserLoginList()).containsKey(txtUser.getText().trim().replaceAll(" ", ""))) {
                 JOptionPane.showMessageDialog(rootPane, "Usuario ya existe, intente con otro");
@@ -784,7 +774,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
         try {
             login.readDatabase();
         } catch (Exception ex) {
-            Logger.getLogger(UserRegisterScreen.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         user = this.txtUser.getText().replaceAll(" ", "").trim().toLowerCase();
@@ -840,7 +830,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
                         nutritionist.saveData();
                         JOptionPane.showMessageDialog(rootPane, "Datos guardados con éxito");
                     } catch (Exception ex) {
-                        Logger.getLogger(UserRegisterScreen.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     System.out.println("Guardando datos nutricionista");
                     for (int i = 0; JpanelSignUp.getComponents().length > i; i++) {
@@ -880,7 +870,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
                         patient.saveData();
                         JOptionPane.showMessageDialog(rootPane, "Datos guardados con éxito");
                     } catch (Exception ex) {
-                        Logger.getLogger(UserRegisterScreen.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     System.out.println("Guardando datos del paciente");
 
@@ -960,12 +950,6 @@ public class UserRegisterScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserActionPerformed
 
-    private void btnBackToLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToLoginActionPerformed
-        LoginScreen lgs = new LoginScreen();
-        lgs.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnBackToLoginActionPerformed
-
     private void rbtYesAthleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtYesAthleteMouseClicked
         // TODO add your handling code here:
         btnSave.setVisible(true);
@@ -995,14 +979,18 @@ public class UserRegisterScreen extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUserProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUserProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUserProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditUserProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -1011,14 +999,13 @@ public class UserRegisterScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserRegisterScreen().setVisible(true);
+                new EditUserProfile().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelSignUp;
-    private javax.swing.JButton btnBackToLogin;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cbxTypeUser;
     private javax.swing.JLabel jLabel1;
@@ -1038,8 +1025,8 @@ public class UserRegisterScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelUser;
     private javax.swing.JLabel jLabelYearsExperience;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelAditionalData;
+    private javax.swing.JPanel jPanelBottonSave;
     private javax.swing.JPanel jPanelSignUpTitle;
     private javax.swing.JRadioButton rbtFemale;
     private javax.swing.ButtonGroup rbtGroupSex;
