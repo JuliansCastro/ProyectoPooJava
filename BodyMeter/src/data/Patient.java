@@ -15,10 +15,11 @@ import logicBusiness.ExportData;
 public class Patient extends User implements ExportData {
 
     private final String nameDoc = "userProfile.txt";
+    private final String pathfile = new File("").getAbsolutePath() + "\\src\\resources\\base\\" + nameDoc;
     private String age, sports;
     AnthropometricMeasurement measurements = new AnthropometricMeasurement();
     private final BufferedReader bufferRead = null;
-    
+
 
     /* ----------- BUILDER ----------------------------------------------------*/
     public Patient() {
@@ -37,7 +38,6 @@ public class Patient extends User implements ExportData {
         System.out.println("------------------\n");
 
         System.out.println(getListOfPatientData());
-        
 
     }
 
@@ -46,7 +46,6 @@ public class Patient extends User implements ExportData {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
     @Override
     public void saveData() throws Exception { //Save only User profile
 
@@ -61,7 +60,7 @@ public class Patient extends User implements ExportData {
         String tempAge = getAge();
         String tempSport = getSports();
 
-        try (FileWriter fw = new FileWriter(nameDoc, true);
+        try (FileWriter fw = new FileWriter(pathfile, true);
                 PrintWriter writeTXT = new PrintWriter(fw)) {
             deleteDataUser(tempId);
             writeTXT.print(Arrays.toString(encrypt(tempId)));
@@ -89,7 +88,7 @@ public class Patient extends User implements ExportData {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
         /*
         try (FileWriter fw = new FileWriter("patientDataTestFile.txt", true);
                 PrintWriter writeTXT = new PrintWriter(fw)) {

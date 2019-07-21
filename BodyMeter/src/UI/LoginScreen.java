@@ -279,7 +279,8 @@ public class LoginScreen extends javax.swing.JFrame {
                         NutritionistPrincipalScreen ps = new NutritionistPrincipalScreen();
                         ps.setVisible(true);
                     } else if (listOfPatientData.containsKey(id)) {
-                        System.out.println("Aun no se ha creado la ventana paciente");
+                        PatientPrincipalScreen pps = new PatientPrincipalScreen();
+                        pps.setVisible(true);
                     }
 
                 } catch (Exception ex) {
@@ -351,10 +352,11 @@ public class LoginScreen extends javax.swing.JFrame {
                         listOfPatientData = us.getListOfPatientData();
 
                         if (listOfNutritionists.containsKey(id)) {
-                            NutritionistPrincipalScreen ps = new NutritionistPrincipalScreen();
-                            ps.setVisible(true);
+                            NutritionistPrincipalScreen nps = new NutritionistPrincipalScreen();
+                            nps.setVisible(true);
                         } else if (listOfPatientData.containsKey(id)) {
-                            System.out.println("Aun no se ha creado la ventana paciente");
+                            PatientPrincipalScreen pps = new PatientPrincipalScreen();
+                            pps.setVisible(true);
                         }
 
                     } catch (Exception ex) {
@@ -385,45 +387,6 @@ public class LoginScreen extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_txtPasswordFieldKeyPressed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginScreen().setVisible(true);
-            }
-        });
-
-    }//End main
 
     public static String getLoged() {
         return loged;

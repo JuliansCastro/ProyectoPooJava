@@ -1,8 +1,9 @@
 package data;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.HashMap;
 
 /*
  * @author ANONYMOUS
@@ -13,8 +14,9 @@ import java.util.HashMap;
 public class Nutritionist extends User {
 
     private final String nameDoc = "userProfile.txt";
+    //private String pathfile = Paths.get("D:\\Archivos\\"+nameDoc);
+    private final String pathfile = new File("").getAbsolutePath() + "\\src\\resources\\base\\" + nameDoc;
     private String yearsOfExperience, professionalCard;
-    private BufferedReader bufferRead = null;
     
     Patient patient = new Patient();
 
@@ -33,8 +35,7 @@ public class Nutritionist extends User {
     
     public void listNutritionist() throws Exception {
         System.out.println("\nLISTA DE NUTRICIONISTAS ");//(Default: (user: jul psw: 1234))");
-        System.out.println("------------------\n");
-
+        System.out.println("-------------------------\n");
         System.out.println(getListOfNutritionistsData());
 
     }
@@ -53,7 +54,7 @@ public class Nutritionist extends User {
         String tempYearsExperience = getYearsOfExperience();
         String tempProfessionalCard = getProfessionalCard();
 
-        try (FileWriter fw = new FileWriter(nameDoc, true);
+        try (FileWriter fw = new FileWriter(pathfile, true);
                 PrintWriter writeTXT = new PrintWriter(fw)) {
             deleteDataUser(tempId);
             writeTXT.print(Arrays.toString(encrypt(tempId)));

@@ -16,7 +16,9 @@ import javax.swing.JOptionPane;
  */
 public class Login extends User {
 
+    //nameDoc
     private final String nameDoc = "login.txt";
+    private final String pathfile = new File("").getAbsolutePath() + "\\src\\resources\\base\\" + nameDoc;
     private String answer;
     private static int failedAttempt = 0;
     private boolean activeSession = false;
@@ -25,7 +27,7 @@ public class Login extends User {
     private final Scanner keyboard = new Scanner(System.in);
     private BufferedReader bufferRead = null;
 
-    //private User user = new User(user, password);
+  
 
     /* ----------- BUILDER -----------------------------------------------------*/
     public Login() {
@@ -175,7 +177,7 @@ public class Login extends User {
     @Override
     public void readDatabase() throws IOException, Exception { //Read only login data
         try {
-            bufferRead = new BufferedReader(new FileReader(nameDoc));
+            bufferRead = new BufferedReader(new FileReader(pathfile));
             setThereIsADatabase(true);
             String readTextLine, readUser, readPassword, readId;
 
@@ -194,7 +196,7 @@ public class Login extends User {
 
                 String[] userValue = {readId, readUser, readPassword};
                 userLoginList.put(readUser, userValue);
-                
+
                 System.out.printf("Usuario: %s\t", readUser);
                 System.out.printf("Contraseña: %s\t", readPassword);
                 System.out.printf("Identificación: %s\n", readId);
@@ -207,7 +209,7 @@ public class Login extends User {
 
             JOptionPane.showMessageDialog(null, "Base de datos no encontrada.\n"
                     + " Se ha creado una nueva.");
-            createFile(nameDoc);
+            createFile(pathfile);
 
             System.out.println("\nRegistrese por favor.");
 
@@ -228,7 +230,7 @@ public class Login extends User {
         if (userLoginList.containsKey(user)) {
             deleteDataUser(user);
 
-            try (FileWriter fw = new FileWriter(nameDoc, true);
+            try (FileWriter fw = new FileWriter(pathfile, true);
                     PrintWriter writeTXT = new PrintWriter(fw)) {
                 deleteDataUser(user);
                 writeTXT.print(Arrays.toString(encrypt(user)));
@@ -242,7 +244,7 @@ public class Login extends User {
                 System.out.println(ex.getMessage());
             }
         } else {
-            try (FileWriter fw = new FileWriter(nameDoc, true);
+            try (FileWriter fw = new FileWriter(pathfile, true);
                     PrintWriter writeTXT = new PrintWriter(fw)) {
                 deleteDataUser(user);
                 writeTXT.print(Arrays.toString(encrypt(user)));
@@ -265,7 +267,7 @@ public class Login extends User {
         if (userLoginList.containsKey(userToRemove)) {
             userLoginList.remove(userToRemove);
 
-            try (FileWriter fw = new FileWriter(nameDoc, false);
+            try (FileWriter fw = new FileWriter(pathfile, false);
                     PrintWriter writeTXT = new PrintWriter(fw)) {
 
                 for (Map.Entry<String, String[]> entry : userLoginList.entrySet()) {

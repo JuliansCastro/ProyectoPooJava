@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import logicBusiness.Login;
 import logicBusiness.ExportData;
 
 /*
@@ -18,8 +17,9 @@ import logicBusiness.ExportData;
  * @author JUAN B
  */
 public class User implements ExportData {
-
+//
     private final String nameDoc = "userProfile.txt";
+    private final String pathfile = new File("").getAbsolutePath() + "\\src\\resources\\base\\" + nameDoc;
     private String id, user, password, name, lastName, birthdate, phone, email;
     private String sex, userType; //Patient == 1 
 
@@ -61,7 +61,7 @@ public class User implements ExportData {
     public void readDatabase() throws IOException, Exception {
 
         try {
-            bufferRead = new BufferedReader(new FileReader(nameDoc));
+            bufferRead = new BufferedReader(new FileReader(pathfile));
             String readTextLine, readId, readUserType, readName, readLastname, readSex,
                     readBirthday, readPhone, readEmail, readAgeOrExperience, readSportOrProfessionalCard;
 
@@ -142,7 +142,7 @@ public class User implements ExportData {
 
         } catch (FileNotFoundException exp) {
             System.out.println("Base de datos no encontrada. Se ha creado una nueva.");
-            createFile(nameDoc);
+            createFile(pathfile);
             readDatabase();
             //System.exit(0);// acaba el programa
         }//*/
@@ -166,7 +166,7 @@ public class User implements ExportData {
         if (listOfPatientData.containsKey(idToRemove)){
             listOfPatientData.remove(idToRemove);
 
-            try (FileWriter fw = new FileWriter(nameDoc, false);
+            try (FileWriter fw = new FileWriter(pathfile, false);
                     PrintWriter writeTXT = new PrintWriter(fw)) {
 
                 for (Map.Entry<String, String[]> entry : listOfPatientData.entrySet()) {
@@ -210,7 +210,7 @@ public class User implements ExportData {
                 System.out.println(ex.getMessage());
             }
             
-            try (FileWriter fw = new FileWriter(nameDoc, true);
+            try (FileWriter fw = new FileWriter(pathfile, true);
                     PrintWriter writeTXT = new PrintWriter(fw)) {
 
                 for (Map.Entry<String, String[]> entry : listOfNutritionistsData.entrySet()) {
@@ -258,7 +258,7 @@ public class User implements ExportData {
         } else if(listOfNutritionistsData.containsKey(idToRemove)){
             //System.out.println("\nEl usuario \'" + userToRemove + "\' no existe");
             
-            try (FileWriter fw = new FileWriter(nameDoc, false);
+            try (FileWriter fw = new FileWriter(pathfile, false);
                     PrintWriter writeTXT = new PrintWriter(fw)) {
 
                 for (Map.Entry<String, String[]> entry : listOfNutritionistsData.entrySet()) {
@@ -302,7 +302,7 @@ public class User implements ExportData {
                 System.out.println(ex.getMessage());
             }
             
-            try (FileWriter fw = new FileWriter(nameDoc, true);
+            try (FileWriter fw = new FileWriter(pathfile, true);
                     PrintWriter writeTXT = new PrintWriter(fw)) {
 
                 for (Map.Entry<String, String[]> entry : listOfPatientData.entrySet()) {

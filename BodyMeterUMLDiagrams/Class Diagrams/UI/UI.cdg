@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="UI">
+  <ClassDiagramComponents>
+    <Class name="EditUserProfile" package="UI" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="users" type="User" visibility="private" isFinal="true"/>
+        <Field name="login" type="Login" visibility="private" isFinal="true"/>
+        <Field name="listOfNutritionists" type="HashMap&lt;String, String[]&gt;" visibility="private"/>
+        <Field name="loginList" type="HashMap&lt;String, String[]&gt;" visibility="private"/>
+        <Field name="user" type="String" visibility="private"/>
+        <Field name="JpanelSignUp" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="btnCancel" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnSave" type="javax.swing.JButton" visibility="private"/>
+        <Field name="cbxTypeUser" type="javax.swing.JComboBox&lt;String&gt;" visibility="private"/>
+        <Field name="jLabeMessagelErrorPasswordConfirm" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelAge" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelAthlete" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelBirthday" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelConfirmPassword" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelEmail" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelId" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelLastnames" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelNames" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelPassword" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelPhone" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelProfessionalCard" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelSex" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelTypeUser" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelUser" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelYearsExperience" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelAditionalData" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelBottonSave" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelSignUpTitle" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="rbtFemale" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="rbtGroupSex" type="javax.swing.ButtonGroup" visibility="private"/>
+        <Field name="rbtGroupSport" type="javax.swing.ButtonGroup" visibility="private"/>
+        <Field name="rbtMale" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="rbtNoAthlete" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="rbtYesAthlete" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="txtAge" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtBirthday" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtConfirmPasswordField" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="txtEmail" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtId" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtLastnames" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtNames" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtPasswordField" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="txtPhone" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtProfessionalCard" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtUser" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtYearsExperience" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="txtNamesKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtLastnamesKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtUserKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtIdKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtBirthdayActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtPasswordFieldKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtPhoneKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtEmailKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtBirthdayKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="cbxTypeUserKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="rbtFemaleActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="rbtYesAthleteActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="cbxTypeUserActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtConfirmPasswordFieldKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtLastnamesActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="cbxTypeUserMouseClicked" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="cbxTypeUserItemStateChanged" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ItemEvent" name="evt"/>
+        </Method>
+        <Method name="btnSaveActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtProfessionalCardKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtYearsExperienceKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtAgeKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtConfirmPasswordFieldActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="rbtYesAthleteKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="rbtNoAthleteKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="btnSaveKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtUserActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="rbtYesAthleteMouseClicked" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="rbtNoAthleteMouseClicked" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="txtNamesActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtConfirmPasswordFieldKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="btnCancelActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="LoginScreen" package="UI" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields>
+        <Field name="login" type="Login" visibility="private" isFinal="true"/>
+        <Field name="user" type="String" visibility="private" isStatic="true"/>
+        <Field name="password" type="String" visibility="private"/>
+        <Field name="failedAttempt" type="int" visibility="private"/>
+        <Field name="loged" type="String" visibility="private" isStatic="true"/>
+        <Field name="btnLogIn" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnSignUp" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabelErrorLogin" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelLogin" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelPassword" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelUsuario" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelLoginBox" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelUserPassBox" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="titleBox_jPanel" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="txtPasswordField" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="txtUser" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="txtUserActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnSignUpActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnLogInActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtUserKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtPasswordFieldKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="getLoged" returnType="String" visibility="public" isStatic="true"/>
+        <Method name="setLoged" returnType="void" visibility="public">
+          <Argument type="String" name="loged"/>
+        </Method>
+        <Method name="getUser" returnType="String" visibility="public" isStatic="true"/>
+        <Method name="setUser" returnType="void" visibility="public">
+          <Argument type="String" name="user"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="NutritionistPrincipalScreen" package="UI" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields>
+        <Field name="users" type="User" visibility="private" isFinal="true"/>
+        <Field name="login" type="Login" visibility="private" isFinal="true"/>
+        <Field name="listOfNutritionists" type="HashMap&lt;String, String[]&gt;" visibility="private"/>
+        <Field name="loginList" type="HashMap&lt;String, String[]&gt;" visibility="private"/>
+        <Field name="patients" type="HashMap&lt;String, String[]&gt;" visibility="private"/>
+        <Field name="tableModel" type="DefaultTableModel" visibility="package"/>
+        <Field name="searchText" type="String" visibility="private"/>
+        <Field name="btnEditUserProfile" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnLogout" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnSearch" type="javax.swing.JButton" visibility="private"/>
+        <Field name="buttonGroup1" type="javax.swing.ButtonGroup" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelErrorSearchMessage" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelListPatients" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelName" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelUserType" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelVoid" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelVoid2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelVoid3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelBase" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelSignUpTitle" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jScrollPane1" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="tblPatients" type="javax.swing.JTable" visibility="private"/>
+        <Field name="txtSearchId" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="loadPatient" returnType="void" visibility="private">
+          <Argument type="String" name="searchId"/>
+        </Method>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="btnLogoutActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtSearchIdActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnSearchActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnSearchKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="btnEditUserProfileActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtSearchIdMouseClicked" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PatientPrincipalScreen" package="UI" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields>
+        <Field name="users" type="User" visibility="private" isFinal="true"/>
+        <Field name="login" type="Login" visibility="private" isFinal="true"/>
+        <Field name="listOfPatients" type="HashMap&lt;String, String[]&gt;" visibility="private"/>
+        <Field name="loginList" type="HashMap&lt;String, String[]&gt;" visibility="private"/>
+        <Field name="patients" type="HashMap&lt;String, String[]&gt;" visibility="private"/>
+        <Field name="modelo" type="DefaultTableModel" visibility="package"/>
+        <Field name="searchText" type="String" visibility="private"/>
+        <Field name="btnLogout" type="javax.swing.JButton" visibility="private"/>
+        <Field name="buttonGroup1" type="javax.swing.ButtonGroup" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelName" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelUserType" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelBase" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelSignUpTitle" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jpanelLocator" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jpanelScore" type="javax.swing.JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="loadPatient" returnType="void" visibility="private">
+          <Argument type="String" name="buscar"/>
+        </Method>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="btnLogoutActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UserRegisterScreen" package="UI" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Fields>
+        <Field name="login" type="Login" visibility="private" isFinal="true"/>
+        <Field name="user" type="String" visibility="private"/>
+        <Field name="JpanelSignUp" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="btnBackToLogin" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnSave" type="javax.swing.JButton" visibility="private"/>
+        <Field name="cbxTypeUser" type="javax.swing.JComboBox&lt;String&gt;" visibility="private"/>
+        <Field name="jLabeMessagelErrorPasswordConfirm" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelAge" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelAthlete" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelBirthday" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelConfirmPassword" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelEmail" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelId" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelLastnames" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelNames" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelPassword" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelPhone" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelProfessionalCard" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelSex" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelTypeUser" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelUser" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelYearsExperience" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelAditionalData" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelSignUpTitle" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="rbtFemale" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="rbtGroupSex" type="javax.swing.ButtonGroup" visibility="private"/>
+        <Field name="rbtGroupSport" type="javax.swing.ButtonGroup" visibility="private"/>
+        <Field name="rbtMale" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="rbtNoAthlete" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="rbtYesAthlete" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="txtAge" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtBirthday" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtConfirmPasswordField" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="txtEmail" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtId" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtLastnames" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtNames" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtPasswordField" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="txtPhone" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtProfessionalCard" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtUser" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtYearsExperience" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="txtNamesKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtLastnamesKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtUserKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtIdKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtBirthdayActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtPasswordFieldKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtPhoneKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtEmailKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtBirthdayKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="cbxTypeUserKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="rbtFemaleActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="rbtYesAthleteActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="cbxTypeUserActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtConfirmPasswordFieldKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtLastnamesActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="cbxTypeUserMouseClicked" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="cbxTypeUserItemStateChanged" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ItemEvent" name="evt"/>
+        </Method>
+        <Method name="btnSaveActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtProfessionalCardKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtYearsExperienceKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtAgeKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtConfirmPasswordFieldActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="rbtYesAthleteKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="rbtNoAthleteKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="btnSaveKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtUserActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnBackToLoginActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="rbtYesAthleteMouseClicked" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="rbtNoAthleteMouseClicked" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="txtConfirmPasswordFieldKeyTyped" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtConfirmPasswordFieldKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtPasswordFieldKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="txtYearsExperienceKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations/>
+</ClassDiagram>
