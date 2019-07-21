@@ -1,14 +1,11 @@
 package logicBusiness;
 
-import UI.LoginScreen;
-import UI.UserRegisterScreen;
 import data.User;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.Map;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -23,7 +20,7 @@ public class Login extends User {
     private String answer;
     private static int failedAttempt = 0;
     private boolean activeSession = false;
-    private boolean thereIsAUser,thereIsADatabase;
+    private boolean thereIsAUser, thereIsADatabase;
     private HashMap<String, String[]> userLoginList = new HashMap<>();
     private final Scanner keyboard = new Scanner(System.in);
     private BufferedReader bufferRead = null;
@@ -60,7 +57,7 @@ public class Login extends User {
                     setActiveSession(false);
                 }
             }
-        }else{
+        } else {
             setThereIsAUser(false);
         }
 
@@ -204,49 +201,59 @@ public class Login extends User {
             }//End while
 
         } catch (FileNotFoundException exp) {
-            
+
             System.out.println("Base de datos no encontrada. Se ha creado una nueva.");
-            
+
             JOptionPane.showMessageDialog(null, "Base de datos no encontrada.\n"
                     + " Se ha creado una nueva.");
             createFile(nameDoc);
 
             System.out.println("\nRegistrese por favor.");
-            /*
-            new LoginScreen().setVisible(false);
-            
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                //LoginScreen.
-                UserRegisterScreen ur = new UserRegisterScreen();
-                ur.setVisible(true);
-                ur.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                
-            });*/
-            //signUp();
+
             readDatabase();
-            //System.exit(0);// acaba el programa
+
         }
 
     }
 
     @Override
-    public void saveData(String user, String password, String id) throws Exception {//Save only User profile
+    public void saveData(String user, String password, String id) throws Exception {//Save only User login data
         if (id.equals("")) {
             id = createIdentifier();
         }
 
-        try (FileWriter fw = new FileWriter(nameDoc, true);
-                PrintWriter writeTXT = new PrintWriter(fw)) {
-            deleteDataUser(user);
-            writeTXT.print(Arrays.toString(encrypt(user)));
-            writeTXT.print("\t");
-            writeTXT.print(Arrays.toString(encrypt(password)));
-            writeTXT.print("\t");
-            writeTXT.println(Arrays.toString(encrypt(id)));
-            fw.close();
+        readDatabase();
 
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        if (userLoginList.containsKey(user)) {
+            deleteDataUser(user);
+
+            try (FileWriter fw = new FileWriter(nameDoc, true);
+                    PrintWriter writeTXT = new PrintWriter(fw)) {
+                deleteDataUser(user);
+                writeTXT.print(Arrays.toString(encrypt(user)));
+                writeTXT.print("\t");
+                writeTXT.print(Arrays.toString(encrypt(password)));
+                writeTXT.print("\t");
+                writeTXT.println(Arrays.toString(encrypt(id)));
+                fw.close();
+
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        } else {
+            try (FileWriter fw = new FileWriter(nameDoc, true);
+                    PrintWriter writeTXT = new PrintWriter(fw)) {
+                deleteDataUser(user);
+                writeTXT.print(Arrays.toString(encrypt(user)));
+                writeTXT.print("\t");
+                writeTXT.print(Arrays.toString(encrypt(password)));
+                writeTXT.print("\t");
+                writeTXT.println(Arrays.toString(encrypt(id)));
+                fw.close();
+
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
@@ -322,8 +329,6 @@ public class Login extends User {
     public void setThereIsADatabase(boolean thereIsADatabase) {
         this.thereIsADatabase = thereIsADatabase;
     }
-    
-    
 
     /* ------------------------------------------------------------------------*/
     @Override

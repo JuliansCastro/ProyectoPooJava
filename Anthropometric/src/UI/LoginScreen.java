@@ -18,9 +18,10 @@ public class LoginScreen extends javax.swing.JFrame {
      * Creates new form Login
      */
     private final Login login = new Login();
-    private String user = "", password = "";
+    private static String user;
+    private String password = "";
     private int failedAttempt = 0;
-
+    private static String loged;
     public LoginScreen() {
         initComponents();
         setLocationRelativeTo(null); //To center window
@@ -244,7 +245,7 @@ public class LoginScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         //BORRAR
         
-        PrincipalScreen pScreen = new PrincipalScreen();
+        NutritionistPrincipalScreen pScreen = new NutritionistPrincipalScreen();
         pScreen.setVisible(true);
         this.setVisible(false);
         //BORRAR SOLO PRUEBA*/
@@ -267,7 +268,9 @@ public class LoginScreen extends javax.swing.JFrame {
             if (login.isActiveSession() == true) {
                 setVisible(false);
                 failedAttempt = 0;
-                PrincipalScreen ps = new PrincipalScreen();
+                setLoged(login.getId());
+                System.out.println(loged);
+                NutritionistPrincipalScreen ps = new NutritionistPrincipalScreen();
                 ps.setVisible(true);
 
             } else if (login.isThereIsAUser() == false) {
@@ -323,7 +326,7 @@ public class LoginScreen extends javax.swing.JFrame {
                 if (login.isActiveSession() == true) {
                     setVisible(false);
                     failedAttempt = 0;
-                    PrincipalScreen ps = new PrincipalScreen();
+                    NutritionistPrincipalScreen ps = new NutritionistPrincipalScreen();
                     ps.setVisible(true);
                 } else if (login.isThereIsAUser() == false) {
                     failedAttempt++;
@@ -386,8 +389,26 @@ public class LoginScreen extends javax.swing.JFrame {
                 new LoginScreen().setVisible(true);
             }
         });
+        
 
     }//End main
+
+    public static String getLoged() {
+        return loged;
+    }
+
+    public void setLoged(String loged) {
+        this.loged = loged;
+    }
+
+    public static String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogIn;

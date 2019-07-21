@@ -2,7 +2,10 @@ package UI;
 
 import data.Nutritionist;
 import data.Patient;
+import data.User;
 import java.awt.Image;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -23,19 +26,23 @@ public class EditUserProfile extends javax.swing.JFrame {
     /**
      * Creates new form UserRegisterScreen
      */
+    private final User users = new User();
     private final Login login = new Login();
+    private HashMap<String, String[]> listOfNutritionists = new HashMap<>();
+    private HashMap<String, String[]> loginList = new HashMap<>();
     private String user = "", password = "", names = "", lastnames = "", id = "",
             phone = "", email = "", userType = "", birthday = "", sex = "",
             professionalCard = "", yearsExperience = "", age = "", athlete = "";
 
     public EditUserProfile() {
         initComponents();
-        
+
         setLocationRelativeTo(null);
         txtId.enable(false);
         cbxTypeUser.enable(false);
+        txtUser.enable(false);
         setResizable(false);
-        
+
         //btnSave.setVisible(false);
         txtPhone.requestFocus();
         jLabelAthlete.setVisible(false);
@@ -58,6 +65,49 @@ public class EditUserProfile extends javax.swing.JFrame {
 
         getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
         fondo.setBounds(550, 20, background.getIconWidth(), background.getIconHeight());
+        
+
+        try {
+                users.readDatabase();
+                login.readDatabase();
+                listOfNutritionists = users.getListOfNutritionistsData();
+                loginList = login.getUserLoginList();
+                
+                String[] loginData = loginList.get(LoginScreen.getUser());
+                String[] userData = listOfNutritionists.get(loginData[0]);
+                
+                System.out.println("INFO USER: " + Arrays.toString(loginData) + Arrays.toString(userData));
+                
+                txtId.setText(loginData[0]);
+                txtUser.setText(loginData[1]);
+                txtPasswordField.setText(loginData[2]);
+                txtConfirmPasswordField.setText(loginData[2]);
+                txtNames.setText(userData[1]);
+                txtLastnames.setText(userData[2]);
+                txtBirthday.setText(userData[4]);
+                txtPhone.setText(userData[5]);
+                txtEmail.setText(userData[6]);
+                txtYearsExperience.setText(userData[7]);
+                txtProfessionalCard.setText(userData[8]);
+                txtAge.setText(userData[2]);
+                if (userData[3].equals("0")) {
+                        rbtFemale.setSelected(true);
+                    } else {
+                    rbtMale.setSelected(true);
+                    }
+            } catch (Exception ex) {
+                Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        /*if (true) {
+            
+            if ((users.getUserLoginList()).containsKey(txtUser.getText().trim().replaceAll(" ", ""))) {
+                JOptionPane.showMessageDialog(rootPane, "Usuario ya existe, intente con otro");
+                this.txtUser.requestFocus();
+            } else {
+                
+            }
+        }*/
     }
 
     /**
@@ -108,8 +158,10 @@ public class EditUserProfile extends javax.swing.JFrame {
         rbtYesAthlete = new javax.swing.JRadioButton();
         rbtNoAthlete = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
+        btnCancel = new javax.swing.JButton();
         jPanelBottonSave = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
+        jLabeMessagelErrorPasswordConfirm = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,6 +198,11 @@ public class EditUserProfile extends javax.swing.JFrame {
         jLabelLastnames.setText("Apellidos:");
 
         txtNames.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNames.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNamesActionPerformed(evt);
+            }
+        });
         txtNames.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtNamesKeyPressed(evt);
@@ -290,6 +347,9 @@ public class EditUserProfile extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtConfirmPasswordFieldKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtConfirmPasswordFieldKeyReleased(evt);
+            }
         });
 
         jLabelAge.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -372,7 +432,7 @@ public class EditUserProfile extends javax.swing.JFrame {
                         .addComponent(jLabelProfessionalCard)
                         .addGap(14, 14, 14)
                         .addComponent(txtProfessionalCard, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelAditionalDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelAthlete)
                     .addComponent(jLabelYearsExperience))
@@ -404,15 +464,26 @@ public class EditUserProfile extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btnCancel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnCancel.setText("CANCELAR");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 202, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnCancel)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 56, Short.MAX_VALUE)
+            .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
         btnSave.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -432,17 +503,19 @@ public class EditUserProfile extends javax.swing.JFrame {
         jPanelBottonSave.setLayout(jPanelBottonSaveLayout);
         jPanelBottonSaveLayout.setHorizontalGroup(
             jPanelBottonSaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBottonSaveLayout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+            .addGroup(jPanelBottonSaveLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBottonSaveLayout.setVerticalGroup(
             jPanelBottonSaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBottonSaveLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanelBottonSaveLayout.createSequentialGroup()
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
+
+        jLabeMessagelErrorPasswordConfirm.setOpaque(true);
 
         javax.swing.GroupLayout JpanelSignUpLayout = new javax.swing.GroupLayout(JpanelSignUp);
         JpanelSignUp.setLayout(JpanelSignUpLayout);
@@ -451,9 +524,6 @@ public class EditUserProfile extends javax.swing.JFrame {
             .addGroup(JpanelSignUpLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JpanelSignUpLayout.createSequentialGroup()
-                        .addComponent(jPanelSignUpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
                         .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanelAditionalData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -504,23 +574,27 @@ public class EditUserProfile extends javax.swing.JFrame {
                                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
                                         .addComponent(jLabelSex, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(41, 41, 41)))
-                                .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabeMessagelErrorPasswordConfirm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
                                         .addComponent(rbtFemale)
                                         .addGap(26, 26, 26)
                                         .addComponent(rbtMale))
-                                    .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(cbxTypeUser, 0, 217, Short.MAX_VALUE)
-                                        .addComponent(txtPhone)
-                                        .addComponent(txtLastnames)
-                                        .addComponent(txtPasswordField)
-                                        .addComponent(txtConfirmPasswordField)))))
-                        .addGap(0, 144, Short.MAX_VALUE))
+                                    .addComponent(cbxTypeUser, 0, 217, Short.MAX_VALUE)
+                                    .addComponent(txtPhone)
+                                    .addComponent(txtLastnames)
+                                    .addComponent(txtPasswordField)
+                                    .addComponent(txtConfirmPasswordField))))
+                        .addGap(0, 54, Short.MAX_VALUE))
                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanelBottonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(154, 154, 154))))
+                        .addComponent(jPanelSignUpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JpanelSignUpLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(290, 290, 290)
+                .addComponent(jPanelBottonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90))
         );
         JpanelSignUpLayout.setVerticalGroup(
             JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -529,7 +603,9 @@ public class EditUserProfile extends javax.swing.JFrame {
                 .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
                         .addComponent(jPanelSignUpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabeMessagelErrorPasswordConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelUser)
@@ -571,12 +647,11 @@ public class EditUserProfile extends javax.swing.JFrame {
                     .addComponent(txtBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelAditionalData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(46, 46, 46)
+                .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(JpanelSignUpLayout.createSequentialGroup()
-                        .addComponent(jPanelBottonSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addComponent(jPanelBottonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -610,21 +685,8 @@ public class EditUserProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLastnamesKeyPressed
 
     private void txtUserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyPressed
+        this.txtPasswordField.requestFocus();
 
-        char nextTextField = (char) evt.getKeyCode();
-        if (nextTextField == evt.VK_ENTER) {
-            try {
-                login.readDatabase();
-            } catch (Exception ex) {
-                Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if ((login.getUserLoginList()).containsKey(txtUser.getText().trim().replaceAll(" ", ""))) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario ya existe, intente con otro");
-                this.txtUser.requestFocus();
-            } else {
-                this.txtPasswordField.requestFocus();
-            }
-        }
     }//GEN-LAST:event_txtUserKeyPressed
 
     private void txtIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyPressed
@@ -644,7 +706,7 @@ public class EditUserProfile extends javax.swing.JFrame {
             if (new String(txtPasswordField.getPassword()).length() >= 4) {
                 this.txtConfirmPasswordField.requestFocus();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Contraseña mínimo 4 caracteres");
+                jLabeMessagelErrorPasswordConfirm.setText("Contraseña mínimo 4 caracteres");
                 this.txtPasswordField.requestFocus();
             }
         }
@@ -772,7 +834,7 @@ public class EditUserProfile extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
-            login.readDatabase();
+            users.readDatabase();
         } catch (Exception ex) {
             Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -804,11 +866,20 @@ public class EditUserProfile extends javax.swing.JFrame {
             athlete = "1";
         }
 
-        if ((login.getUserLoginList()).containsKey(txtUser.getText().trim().replaceAll(" ", ""))) {
-            JOptionPane.showMessageDialog(rootPane, "Usuario ya existe, intente con otro");
-            this.txtUser.requestFocus();
-        } else {
-            //this.txtPasswordField.requestFocus();
+        
+            /*-----------------------File Login.txt---------------------------*/
+            login.setUser(txtUser.getText());
+            login.setPassword(new String(txtPasswordField.getPassword()));
+            login.setId(txtId.getText());
+            try {
+                System.out.println("DAto desen: "+login.decrypt("[-23, -42, -21, 124, -21, -26, -87, -93, 80, -112, 117, 47, 10, 60, -2, -40]"));
+                login.saveData(login.getUser(), login.getPassword(), login.getId());
+            } catch (Exception ex) {
+                Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            /*-----------------------File userProfile.txt---------------------*/
+            
 
             if (cbxTypeUser.getSelectedItem().toString().equals("Nutricionista")) {
                 if (((txtUser.getText()).equals("") == false)
@@ -864,7 +935,7 @@ public class EditUserProfile extends javax.swing.JFrame {
                         && ((txtAge.getText()).equals("") == false)) {
 
                     try {
-                        login.saveData(user, password, id);
+                        users.saveData(user, password, id);
                         Patient patient = new Patient(id, userType, names, lastnames,
                                 sex, birthday, phone, email, age, athlete);
                         patient.saveData();
@@ -893,10 +964,7 @@ public class EditUserProfile extends javax.swing.JFrame {
                     System.out.println("No Guardado. Datos vacios del Paciente");
                 }
             }
-        }
-
-        PrincipalScreen ps = new PrincipalScreen();
-        ps.setVisible(true);
+        
         this.setVisible(false);//*/
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -962,6 +1030,23 @@ public class EditUserProfile extends javax.swing.JFrame {
         btnSave.requestFocus();
     }//GEN-LAST:event_rbtNoAthleteMouseClicked
 
+    private void txtNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamesActionPerformed
+
+    private void txtConfirmPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmPasswordFieldKeyReleased
+        if (new String(txtPasswordField.getPassword()).equals(new String(txtConfirmPasswordField.getPassword()))) {
+            this.txtNames.requestFocus();
+            jLabeMessagelErrorPasswordConfirm.setText(" ");
+        } else {
+            jLabeMessagelErrorPasswordConfirm.setText("*Contraseña no coincide");
+        }
+    }//GEN-LAST:event_txtConfirmPasswordFieldKeyReleased
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1006,8 +1091,10 @@ public class EditUserProfile extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelSignUp;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cbxTypeUser;
+    private javax.swing.JLabel jLabeMessagelErrorPasswordConfirm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelAge;
     private javax.swing.JLabel jLabelAthlete;

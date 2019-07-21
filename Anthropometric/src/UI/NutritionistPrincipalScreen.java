@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -16,17 +17,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author JULIAN C
  */
-public class PrincipalScreen extends javax.swing.JFrame {
+public class NutritionistPrincipalScreen extends javax.swing.JFrame {
 
     /**
-     * Creates new form PrincipalScreen
+     * Creates new form NutritionistPrincipalScreen
      */
     HashMap<String, String[]> patients = null;
-    DefaultTableModel tableModel;
+    DefaultTableModel modelo;
 
     private String searchText = "";
 
-    public PrincipalScreen() {
+    public NutritionistPrincipalScreen() {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
@@ -49,15 +50,14 @@ public class PrincipalScreen extends javax.swing.JFrame {
 
     private void loadPatient(String searchId) {
         String[] titles = {"Nombre", "Apellido", "Antropometrías", "Acciones"};
-        tabla.setDefaultRenderer(Object.class, new Render());
-        tableModel = new DefaultTableModel(null, titles);
+        modelo = new DefaultTableModel(null, titles);
         Patient patient = new Patient();
 
         try {
             patient.readDatabase();
             patients = patient.getListOfPatientData();
         } catch (Exception ex) {
-            Logger.getLogger(PrincipalScreen.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NutritionistPrincipalScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         String[] registro = new String[4];
@@ -76,9 +76,9 @@ public class PrincipalScreen extends javax.swing.JFrame {
                 registro[1] = lastname;
                 registro[2] = "Antropometria";
                 registro[3] = "Acciones";
-                tableModel.addRow(registro);
+                modelo.addRow(registro);
             }
-            this.tblPatients.setModel(tableModel);
+            this.tblPatients.setModel(modelo);
         } else {
 
             for (Map.Entry<String, String[]> entry : patients.entrySet()) {
@@ -88,17 +88,15 @@ public class PrincipalScreen extends javax.swing.JFrame {
                     registro[1] = lastname;
                     registro[2] = "Antropometria";
                     registro[3] = "Acciones";
-                    tableModel.addRow(registro);
+                    modelo.addRow(registro);
                 }else{
                     jLabelErrorSearchMessage.setText("*No existen datos del paciente");
                 }
             }
-            this.tblPatients.setModel(tableModel);
+            this.tblPatients.setModel(modelo);
         }
 
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -391,6 +389,7 @@ public class PrincipalScreen extends javax.swing.JFrame {
     private void btnEditUserProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditUserProfileActionPerformed
         EditUserProfile ep = new EditUserProfile();
         ep.setVisible(true);
+        ep.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         
     }//GEN-LAST:event_btnEditUserProfileActionPerformed
 
@@ -415,20 +414,21 @@ public class PrincipalScreen extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PrincipalScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NutritionistPrincipalScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PrincipalScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NutritionistPrincipalScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PrincipalScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NutritionistPrincipalScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrincipalScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NutritionistPrincipalScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PrincipalScreen().setVisible(true);
+                new NutritionistPrincipalScreen().setVisible(true);
             }
         });
     }

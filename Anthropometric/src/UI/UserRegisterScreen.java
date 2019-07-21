@@ -32,7 +32,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        btnSave.setVisible(false);
+        btnSave.enable(false);
         txtUser.requestFocus();
         jLabelAthlete.setVisible(false);
         rbtYesAthlete.setVisible(false);
@@ -107,6 +107,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
         btnBackToLogin = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
+        jLabeMessagelErrorPasswordConfirm = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -216,6 +217,9 @@ public class UserRegisterScreen extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPasswordFieldKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPasswordFieldKeyReleased(evt);
+            }
         });
 
         txtPhone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -287,6 +291,12 @@ public class UserRegisterScreen extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtConfirmPasswordFieldKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtConfirmPasswordFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtConfirmPasswordFieldKeyTyped(evt);
+            }
         });
 
         jLabelAge.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -319,6 +329,9 @@ public class UserRegisterScreen extends javax.swing.JFrame {
         txtYearsExperience.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtYearsExperienceKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtYearsExperienceKeyReleased(evt);
             }
         });
 
@@ -455,6 +468,8 @@ public class UserRegisterScreen extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabeMessagelErrorPasswordConfirm.setOpaque(true);
+
         javax.swing.GroupLayout JpanelSignUpLayout = new javax.swing.GroupLayout(JpanelSignUp);
         JpanelSignUp.setLayout(JpanelSignUpLayout);
         JpanelSignUpLayout.setHorizontalGroup(
@@ -515,17 +530,17 @@ public class UserRegisterScreen extends javax.swing.JFrame {
                                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
                                         .addComponent(jLabelSex, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(41, 41, 41)))
-                                .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
                                         .addComponent(rbtFemale)
                                         .addGap(26, 26, 26)
                                         .addComponent(rbtMale))
-                                    .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(cbxTypeUser, 0, 217, Short.MAX_VALUE)
-                                        .addComponent(txtPhone)
-                                        .addComponent(txtLastnames)
-                                        .addComponent(txtPasswordField)
-                                        .addComponent(txtConfirmPasswordField)))))
+                                    .addComponent(cbxTypeUser, 0, 217, Short.MAX_VALUE)
+                                    .addComponent(txtPhone)
+                                    .addComponent(txtLastnames)
+                                    .addComponent(txtPasswordField)
+                                    .addComponent(txtConfirmPasswordField)
+                                    .addComponent(jLabeMessagelErrorPasswordConfirm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 144, Short.MAX_VALUE))
                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -537,10 +552,12 @@ public class UserRegisterScreen extends javax.swing.JFrame {
             JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JpanelSignUpLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(JpanelSignUpLayout.createSequentialGroup()
                         .addComponent(jPanelSignUpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabeMessagelErrorPasswordConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelUser)
@@ -655,7 +672,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
             if (new String(txtPasswordField.getPassword()).length() >= 4) {
                 this.txtConfirmPasswordField.requestFocus();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Contraseña mínimo 4 caracteres");
+                jLabeMessagelErrorPasswordConfirm.setText("Contraseña mínimo 4 caracteres");
                 this.txtPasswordField.requestFocus();
             }
         }
@@ -714,8 +731,10 @@ public class UserRegisterScreen extends javax.swing.JFrame {
             //new String(txtPasswordField.getPassword())
             if (new String(txtPasswordField.getPassword()).equals(new String(txtConfirmPasswordField.getPassword()))) {
                 this.txtNames.requestFocus();
+                jLabeMessagelErrorPasswordConfirm.setText(" ");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Contraseñas no coinciden");
+                //JOptionPane.showMessageDialog(rootPane, "Contraseñas no coinciden");
+                jLabeMessagelErrorPasswordConfirm.setText("*Contraseña no coincide");
                 this.txtConfirmPasswordField.requestFocus();
             }
         }
@@ -835,6 +854,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
                         && ((txtYearsExperience.getText()).equals("") == false)) {
                     try {
                         login.saveData(user, password, id);
+                        login.logIn(user, password);
                         Nutritionist nutritionist = new Nutritionist(id, userType,
                                 names, lastnames, sex, birthday, phone, email,
                                 yearsExperience, professionalCard);
@@ -876,6 +896,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
 
                     try {
                         login.saveData(user, password, id);
+                        login.logIn(user, password);
                         Patient patient = new Patient(id, userType, names, lastnames,
                                 sex, birthday, phone, email, age, athlete);
                         patient.saveData();
@@ -906,9 +927,9 @@ public class UserRegisterScreen extends javax.swing.JFrame {
             }
         }
 
-        PrincipalScreen ps = new PrincipalScreen();
-        ps.setVisible(true);
-        this.setVisible(false);//*/
+        LoginScreen lgs = new LoginScreen();
+        lgs.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtProfessionalCardKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProfessionalCardKeyPressed
@@ -921,7 +942,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
     private void txtYearsExperienceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYearsExperienceKeyPressed
         char nextTextField = (char) evt.getKeyCode();
         if (nextTextField == evt.VK_ENTER) {
-            this.btnSave.setVisible(true);
+            this.btnSave.enable(true);
             this.btnSave.requestFocus();
         }
     }//GEN-LAST:event_txtYearsExperienceKeyPressed
@@ -940,7 +961,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
     private void rbtYesAthleteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rbtYesAthleteKeyPressed
         char nextTextField = (char) evt.getKeyCode();
         if (nextTextField == evt.VK_ENTER) {
-            this.btnSave.setVisible(true);
+            this.btnSave.enable(true);
             this.btnSave.requestFocus();
         }
     }//GEN-LAST:event_rbtYesAthleteKeyPressed
@@ -948,7 +969,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
     private void rbtNoAthleteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rbtNoAthleteKeyPressed
         char nextTextField = (char) evt.getKeyCode();
         if (nextTextField == evt.VK_ENTER) {
-            this.btnSave.setVisible(true);
+            this.btnSave.enable(true);
             this.btnSave.requestFocus();
         }
     }//GEN-LAST:event_rbtNoAthleteKeyPressed
@@ -969,15 +990,38 @@ public class UserRegisterScreen extends javax.swing.JFrame {
 
     private void rbtYesAthleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtYesAthleteMouseClicked
         // TODO add your handling code here:
-        btnSave.setVisible(true);
+        btnSave.enable(true);
         btnSave.requestFocus();
     }//GEN-LAST:event_rbtYesAthleteMouseClicked
 
     private void rbtNoAthleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtNoAthleteMouseClicked
         // TODO add your handling code here:
-        btnSave.setVisible(true);
+        btnSave.enable(true);
         btnSave.requestFocus();
     }//GEN-LAST:event_rbtNoAthleteMouseClicked
+
+    private void txtConfirmPasswordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmPasswordFieldKeyTyped
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtConfirmPasswordFieldKeyTyped
+
+    private void txtConfirmPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmPasswordFieldKeyReleased
+        // TODO add your handling code here:
+        if (new String(txtPasswordField.getPassword()).equals(new String(txtConfirmPasswordField.getPassword()))) {
+            this.txtNames.requestFocus();
+            jLabeMessagelErrorPasswordConfirm.setText(" ");
+        } else {
+            jLabeMessagelErrorPasswordConfirm.setText("*Contraseña no coincide");
+        }
+    }//GEN-LAST:event_txtConfirmPasswordFieldKeyReleased
+
+    private void txtPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordFieldKeyReleased
+
+    }//GEN-LAST:event_txtPasswordFieldKeyReleased
+
+    private void txtYearsExperienceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtYearsExperienceKeyReleased
+        btnSave.enable(true);
+    }//GEN-LAST:event_txtYearsExperienceKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1022,6 +1066,7 @@ public class UserRegisterScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnBackToLogin;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cbxTypeUser;
+    private javax.swing.JLabel jLabeMessagelErrorPasswordConfirm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelAge;
     private javax.swing.JLabel jLabelAthlete;

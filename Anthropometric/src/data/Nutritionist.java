@@ -55,7 +55,7 @@ public class Nutritionist extends User {
 
         try (FileWriter fw = new FileWriter(nameDoc, true);
                 PrintWriter writeTXT = new PrintWriter(fw)) {
-            //Login.deleteUser(user);
+            deleteDataUser(tempId);
             writeTXT.print(Arrays.toString(encrypt(tempId)));
             writeTXT.print("\t");
             writeTXT.print(Arrays.toString(encrypt(tempUserType)));

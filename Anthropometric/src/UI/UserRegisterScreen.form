@@ -128,19 +128,18 @@
                                           <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="rbtFemale" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                           <Component id="rbtMale" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="cbxTypeUser" pref="217" max="32767" attributes="0"/>
-                                          <Component id="txtPhone" max="32767" attributes="0"/>
-                                          <Component id="txtLastnames" max="32767" attributes="0"/>
-                                          <Component id="txtPasswordField" max="32767" attributes="0"/>
-                                          <Component id="txtConfirmPasswordField" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="cbxTypeUser" pref="217" max="32767" attributes="0"/>
+                                      <Component id="txtPhone" max="32767" attributes="0"/>
+                                      <Component id="txtLastnames" max="32767" attributes="0"/>
+                                      <Component id="txtPasswordField" max="32767" attributes="0"/>
+                                      <Component id="txtConfirmPasswordField" max="32767" attributes="0"/>
+                                      <Component id="jLabeMessagelErrorPasswordConfirm" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -160,10 +159,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jPanelSignUpTitle" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                          <Component id="jLabeMessagelErrorPasswordConfirm" min="-2" pref="19" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="jLabelUser" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -411,6 +412,7 @@
           </Properties>
           <Events>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPasswordFieldKeyPressed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPasswordFieldKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPhone">
@@ -497,6 +499,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtConfirmPasswordFieldActionPerformed"/>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtConfirmPasswordFieldKeyPressed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtConfirmPasswordFieldKeyReleased"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtConfirmPasswordFieldKeyTyped"/>
           </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanelAditionalData">
@@ -619,6 +623,7 @@
               </Properties>
               <Events>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtYearsExperienceKeyPressed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtYearsExperienceKeyReleased"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="rbtYesAthlete">
@@ -726,6 +731,11 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="jLabeMessagelErrorPasswordConfirm">
+          <Properties>
+            <Property name="opaque" type="boolean" value="true"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
