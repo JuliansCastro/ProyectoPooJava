@@ -55,6 +55,7 @@ public class User implements ExportData {
 
         return dateFormat;
     }
+    
 
     @Override
     public void readDatabase() throws IOException, Exception {
@@ -504,6 +505,7 @@ public class User implements ExportData {
     }
 
     public String getUserType() {
+        
         return userType;
     }
 

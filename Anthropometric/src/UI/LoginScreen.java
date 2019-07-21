@@ -1,6 +1,8 @@
 package UI;
 
+import data.User;
 import java.awt.Image;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -22,6 +24,7 @@ public class LoginScreen extends javax.swing.JFrame {
     private String password = "";
     private int failedAttempt = 0;
     private static String loged;
+
     public LoginScreen() {
         initComponents();
         setLocationRelativeTo(null); //To center window
@@ -242,21 +245,13 @@ public class LoginScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSignUpActionPerformed
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
-        // TODO add your handling code here:
-        //BORRAR
-        
-        NutritionistPrincipalScreen pScreen = new NutritionistPrincipalScreen();
-        pScreen.setVisible(true);
-        this.setVisible(false);
-        //BORRAR SOLO PRUEBA*/
-        
+
         user = txtUser.getText();
         user = user.replaceAll(" ", "").trim().toLowerCase();
         password = new String(txtPasswordField.getPassword());
 
         if ((user.equals("")) && (password.equals(""))) {
             jLabelErrorLogin.setText("*Los campos no pueden estar vacíos");
-            //JOptionPane.showMessageDialog(rootPane, "Los campos no pueden estar vacíos");
         } else {
 
             try {
@@ -268,10 +263,28 @@ public class LoginScreen extends javax.swing.JFrame {
             if (login.isActiveSession() == true) {
                 setVisible(false);
                 failedAttempt = 0;
-                setLoged(login.getId());
-                System.out.println(loged);
-                NutritionistPrincipalScreen ps = new NutritionistPrincipalScreen();
-                ps.setVisible(true);
+                String id = login.getId();
+                User us = new User();
+                HashMap<String, String[]> listOfNutritionists = new HashMap<>();
+                HashMap<String, String[]> listOfPatientData = new HashMap<>();
+
+                setLoged(id);
+
+                try {
+                    us.readDatabase();
+                    listOfNutritionists = us.getListOfNutritionistsData();
+                    listOfPatientData = us.getListOfPatientData();
+
+                    if (listOfNutritionists.containsKey(id)) {
+                        NutritionistPrincipalScreen ps = new NutritionistPrincipalScreen();
+                        ps.setVisible(true);
+                    } else if (listOfPatientData.containsKey(id)) {
+                        System.out.println("Aun no se ha creado la ventana paciente");
+                    }
+
+                } catch (Exception ex) {
+                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             } else if (login.isThereIsAUser() == false) {
                 failedAttempt++;
@@ -314,7 +327,6 @@ public class LoginScreen extends javax.swing.JFrame {
 
             if ((user.equals("")) && (password.equals(""))) {
                 jLabelErrorLogin.setText("*Los campos no pueden estar vacíos");
-                //JOptionPane.showMessageDialog(rootPane, "Los campos no pueden estar vacíos");
             } else {
 
                 try {
@@ -326,8 +338,29 @@ public class LoginScreen extends javax.swing.JFrame {
                 if (login.isActiveSession() == true) {
                     setVisible(false);
                     failedAttempt = 0;
-                    NutritionistPrincipalScreen ps = new NutritionistPrincipalScreen();
-                    ps.setVisible(true);
+                    String id = login.getId();
+                    User us = new User();
+                    HashMap<String, String[]> listOfNutritionists = new HashMap<>();
+                    HashMap<String, String[]> listOfPatientData = new HashMap<>();
+
+                    setLoged(id);
+
+                    try {
+                        us.readDatabase();
+                        listOfNutritionists = us.getListOfNutritionistsData();
+                        listOfPatientData = us.getListOfPatientData();
+
+                        if (listOfNutritionists.containsKey(id)) {
+                            NutritionistPrincipalScreen ps = new NutritionistPrincipalScreen();
+                            ps.setVisible(true);
+                        } else if (listOfPatientData.containsKey(id)) {
+                            System.out.println("Aun no se ha creado la ventana paciente");
+                        }
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 } else if (login.isThereIsAUser() == false) {
                     failedAttempt++;
                     jLabelErrorLogin.setText("*Usuario y/o contraseña errados");
@@ -389,7 +422,6 @@ public class LoginScreen extends javax.swing.JFrame {
                 new LoginScreen().setVisible(true);
             }
         });
-        
 
     }//End main
 
@@ -408,7 +440,7 @@ public class LoginScreen extends javax.swing.JFrame {
     public void setUser(String user) {
         this.user = user;
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogIn;

@@ -63,7 +63,7 @@ public class Patient extends User implements ExportData {
 
         try (FileWriter fw = new FileWriter(nameDoc, true);
                 PrintWriter writeTXT = new PrintWriter(fw)) {
-            //deleteDataUser(tempId);
+            deleteDataUser(tempId);
             writeTXT.print(Arrays.toString(encrypt(tempId)));
             writeTXT.print("\t");
             writeTXT.print(Arrays.toString(encrypt(tempUserType)));

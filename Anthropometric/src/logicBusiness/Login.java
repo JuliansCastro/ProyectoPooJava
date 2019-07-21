@@ -194,12 +194,13 @@ public class Login extends User {
 
                 String[] userValue = {readId, readUser, readPassword};
                 userLoginList.put(readUser, userValue);
-
+                
                 System.out.printf("Usuario: %s\t", readUser);
                 System.out.printf("Contraseña: %s\t", readPassword);
                 System.out.printf("Identificación: %s\n", readId);
             }//End while
 
+            setUserLoginList(userLoginList);
         } catch (FileNotFoundException exp) {
 
             System.out.println("Base de datos no encontrada. Se ha creado una nueva.");

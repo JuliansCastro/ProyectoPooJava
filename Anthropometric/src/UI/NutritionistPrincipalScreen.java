@@ -1,17 +1,15 @@
 package UI;
 
 import data.Patient;
+import data.User;
 import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import logicBusiness.Login;
 
 /**
  *
@@ -22,8 +20,12 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
     /**
      * Creates new form NutritionistPrincipalScreen
      */
-    HashMap<String, String[]> patients = null;
-    DefaultTableModel modelo;
+    private final User users = new User();
+    private final Login login = new Login();
+    private HashMap<String, String[]> listOfNutritionists = new HashMap<>();
+    private HashMap<String, String[]> loginList = new HashMap<>();
+    private HashMap<String, String[]> patients = null;
+    DefaultTableModel tableModel;
 
     private String searchText = "";
 
@@ -46,11 +48,28 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
 
         jPanelBase.add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
         fondo.setBounds(550, 12, background.getIconWidth(), background.getIconHeight());
+
+        try {
+            users.readDatabase();
+            login.readDatabase();
+            listOfNutritionists = users.getListOfNutritionistsData();
+            loginList = login.getUserLoginList();
+
+            String[] loginData = loginList.get(LoginScreen.getUser());
+            String[] userData = listOfNutritionists.get(loginData[0]);
+
+            //System.out.println("INFO USER: " + Arrays.toString(loginData) + Arrays.toString(userData));
+            jLabelName.setText(userData[1] + " " + userData[2]);
+
+            //txtLastnames.setText(userData[2]);
+        } catch (Exception ex) {
+            Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void loadPatient(String searchId) {
         String[] titles = {"Nombre", "Apellido", "Antropometrías", "Acciones"};
-        modelo = new DefaultTableModel(null, titles);
+        tableModel = new DefaultTableModel(null, titles);
         Patient patient = new Patient();
 
         try {
@@ -63,7 +82,6 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
         String[] registro = new String[4];
         String name = "", lastname = "", anthropometry, actions;
 
-        
         if (searchId.equals("") || searchId.equals(" ")) {
 
             for (Map.Entry<String, String[]> entry : patients.entrySet()) {
@@ -76,9 +94,9 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
                 registro[1] = lastname;
                 registro[2] = "Antropometria";
                 registro[3] = "Acciones";
-                modelo.addRow(registro);
+                tableModel.addRow(registro);
             }
-            this.tblPatients.setModel(modelo);
+            this.tblPatients.setModel(tableModel);
         } else {
 
             for (Map.Entry<String, String[]> entry : patients.entrySet()) {
@@ -88,12 +106,12 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
                     registro[1] = lastname;
                     registro[2] = "Antropometria";
                     registro[3] = "Acciones";
-                    modelo.addRow(registro);
-                }else{
+                    tableModel.addRow(registro);
+                } else {
                     jLabelErrorSearchMessage.setText("*No existen datos del paciente");
                 }
             }
-            this.tblPatients.setModel(modelo);
+            this.tblPatients.setModel(tableModel);
         }
 
     }
@@ -376,10 +394,8 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSearchIdActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        searchText = txtSearchId.getText();
+        searchText = txtSearchId.getText().trim().replaceAll(" ", "");
         loadPatient(searchText);
-
-
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSearchKeyPressed
@@ -390,7 +406,7 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
         EditUserProfile ep = new EditUserProfile();
         ep.setVisible(true);
         ep.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        
+
     }//GEN-LAST:event_btnEditUserProfileActionPerformed
 
     private void txtSearchIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchIdMouseClicked

@@ -76,7 +76,7 @@ public class EditUserProfile extends javax.swing.JFrame {
                 String[] loginData = loginList.get(LoginScreen.getUser());
                 String[] userData = listOfNutritionists.get(loginData[0]);
                 
-                System.out.println("INFO USER: " + Arrays.toString(loginData) + Arrays.toString(userData));
+                //System.out.println("INFO USER: " + Arrays.toString(loginData) + Arrays.toString(userData));
                 
                 txtId.setText(loginData[0]);
                 txtUser.setText(loginData[1]);
