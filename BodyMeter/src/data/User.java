@@ -19,7 +19,8 @@ import logicBusiness.ExportData;
 public class User implements ExportData {
 //
     private final String nameDoc = "userProfile.txt";
-    private final String pathfile = new File("").getAbsolutePath() + "\\src\\resources\\base\\" + nameDoc;
+    private final String pathfile = nameDoc;
+    //private final String pathfile = new File("").getAbsolutePath() + "\\src\\resources\\base\\" + nameDoc;
     private String id, user, password, name, lastName, birthdate, phone, email;
     private String sex, userType; //Patient == 1 
 

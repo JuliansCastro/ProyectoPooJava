@@ -18,7 +18,8 @@ public class Login extends User {
 
     //nameDoc
     private final String nameDoc = "login.txt";
-    private final String pathfile = new File("").getAbsolutePath() + "\\src\\resources\\base\\" + nameDoc;
+    private final String pathfile = nameDoc;
+    //private final String pathfile = new File("").getAbsolutePath() + "\\src\\resources\\base\\" + nameDoc;
     private String answer;
     private static int failedAttempt = 0;
     private boolean activeSession = false;

@@ -29,6 +29,7 @@ public class EditUserProfile extends javax.swing.JFrame {
     private final User users = new User();
     private final Login login = new Login();
     private HashMap<String, String[]> listOfNutritionists = new HashMap<>();
+    private HashMap<String, String[]> listOfPatients = new HashMap<>();
     private HashMap<String, String[]> loginList = new HashMap<>();
     private String user = "", password = "", names = "", lastnames = "", id = "",
             phone = "", email = "", userType = "", birthday = "", sex = "",
@@ -65,40 +66,68 @@ public class EditUserProfile extends javax.swing.JFrame {
 
         getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
         fondo.setBounds(550, 20, background.getIconWidth(), background.getIconHeight());
-        
 
         try {
-                users.readDatabase();
-                login.readDatabase();
-                listOfNutritionists = users.getListOfNutritionistsData();
-                loginList = login.getUserLoginList();
-                
-                String[] loginData = loginList.get(LoginScreen.getUser());
-                String[] userData = listOfNutritionists.get(loginData[0]);
-                
-                //System.out.println("INFO USER: " + Arrays.toString(loginData) + Arrays.toString(userData));
-                
+            users.readDatabase();
+            login.readDatabase();
+            listOfNutritionists = users.getListOfNutritionistsData();
+            listOfPatients = users.getListOfPatientData();
+
+            loginList = login.getUserLoginList();
+
+            String[] loginData = loginList.get(LoginScreen.getUser());
+            String[] userDataNutritionist = listOfNutritionists.get(loginData[0]);
+            String[] userDataPatient = listOfPatients.get(loginData[0]);
+
+            //System.out.println("INFO USER: " + Arrays.toString(loginData) + Arrays.toString(userData));
+            if (listOfNutritionists.containsKey(loginData[0])) {
+
                 txtId.setText(loginData[0]);
                 txtUser.setText(loginData[1]);
                 txtPasswordField.setText(loginData[2]);
                 txtConfirmPasswordField.setText(loginData[2]);
-                txtNames.setText(userData[1]);
-                txtLastnames.setText(userData[2]);
-                txtBirthday.setText(userData[4]);
-                txtPhone.setText(userData[5]);
-                txtEmail.setText(userData[6]);
-                txtYearsExperience.setText(userData[7]);
-                txtProfessionalCard.setText(userData[8]);
-                txtAge.setText(userData[2]);
-                if (userData[3].equals("0")) {
-                        rbtFemale.setSelected(true);
-                    } else {
+                txtNames.setText(userDataNutritionist[1]);
+                txtLastnames.setText(userDataNutritionist[2]);
+                txtBirthday.setText(userDataNutritionist[4]);
+                txtPhone.setText(userDataNutritionist[5]);
+                txtEmail.setText(userDataNutritionist[6]);
+                txtYearsExperience.setText(userDataNutritionist[7]);
+                txtProfessionalCard.setText(userDataNutritionist[8]);
+                if (userDataNutritionist[3].equals("0")) {
+                    rbtFemale.setSelected(true);
+                } else {
                     rbtMale.setSelected(true);
-                    }
-            } catch (Exception ex) {
-                Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (listOfPatients.containsKey(loginData[0])) {
+                cbxTypeUser.setSelectedIndex(1);
+                txtId.setText(loginData[0]);
+                txtUser.setText(loginData[1]);
+                txtPasswordField.setText(loginData[2]);
+                txtConfirmPasswordField.setText(loginData[2]);
+                txtNames.setText(userDataPatient[1]);
+                txtLastnames.setText(userDataPatient[2]);
+                txtBirthday.setText(userDataPatient[4]);
+                txtPhone.setText(userDataPatient[5]);
+                txtEmail.setText(userDataPatient[6]);
+                txtAge.setText(userDataPatient[7]);
+                txtAge.setText(userDataPatient[2]);
+                
+                if (userDataPatient[8].equals("0")) {
+                    rbtYesAthlete.setSelected(true);
+                } else {
+                    rbtNoAthlete.setSelected(true);
+                }
+                if (userDataPatient[3].equals("0")) {
+                    rbtFemale.setSelected(true);
+                } else {
+                    rbtMale.setSelected(true);
+                }
             }
-        
+
+        } catch (Exception ex) {
+            Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         /*if (true) {
             
             if ((users.getUserLoginList()).containsKey(txtUser.getText().trim().replaceAll(" ", ""))) {
@@ -866,105 +895,102 @@ public class EditUserProfile extends javax.swing.JFrame {
             athlete = "1";
         }
 
-        
-            /*-----------------------File Login.txt---------------------------*/
-            login.setUser(txtUser.getText());
-            login.setPassword(new String(txtPasswordField.getPassword()));
-            login.setId(txtId.getText());
-            try {
-                System.out.println("DAto desen: "+login.decrypt("[-23, -42, -21, 124, -21, -26, -87, -93, 80, -112, 117, 47, 10, 60, -2, -40]"));
-                login.saveData(login.getUser(), login.getPassword(), login.getId());
-            } catch (Exception ex) {
-                Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            /*-----------------------File userProfile.txt---------------------*/
-            
+        /*-----------------------File Login.txt---------------------------*/
+        login.setUser(txtUser.getText());
+        login.setPassword(new String(txtPasswordField.getPassword()));
+        login.setId(txtId.getText());
+        try {
+            System.out.println("DAto desen: " + login.decrypt("[-23, -42, -21, 124, -21, -26, -87, -93, 80, -112, 117, 47, 10, 60, -2, -40]"));
+            login.saveData(login.getUser(), login.getPassword(), login.getId());
+        } catch (Exception ex) {
+            Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-            if (cbxTypeUser.getSelectedItem().toString().equals("Nutricionista")) {
-                if (((txtUser.getText()).equals("") == false)
-                        && (((txtPasswordField.getText()).equals("") == false))
-                        && ((txtConfirmPasswordField.getText()).equals("") == false)
-                        && ((txtNames.getText()).equals("") == false)
-                        && ((txtLastnames.getText()).equals("") == false)
-                        && ((txtId.getText()).equals("") == false)
-                        && ((txtPhone.getText()).equals("") == false)
-                        && ((txtEmail.getText()).equals("") == false)
-                        && ((txtBirthday.getText()).equals("") == false)
-                        && ((txtProfessionalCard.getText()).equals("") == false)
-                        && ((txtYearsExperience.getText()).equals("") == false)) {
-                    try {
-                        login.saveData(user, password, id);
-                        Nutritionist nutritionist = new Nutritionist(id, userType,
-                                names, lastnames, sex, birthday, phone, email,
-                                yearsExperience, professionalCard);
-                        nutritionist.saveData();
-                        JOptionPane.showMessageDialog(rootPane, "Datos guardados con éxito");
-                    } catch (Exception ex) {
-                        Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
+        /*-----------------------File userProfile.txt---------------------*/
+        if (cbxTypeUser.getSelectedItem().toString().equals("Nutricionista")) {
+            if (((txtUser.getText()).equals("") == false)
+                    && (((txtPasswordField.getText()).equals("") == false))
+                    && ((txtConfirmPasswordField.getText()).equals("") == false)
+                    && ((txtNames.getText()).equals("") == false)
+                    && ((txtLastnames.getText()).equals("") == false)
+                    && ((txtId.getText()).equals("") == false)
+                    && ((txtPhone.getText()).equals("") == false)
+                    && ((txtEmail.getText()).equals("") == false)
+                    && ((txtBirthday.getText()).equals("") == false)
+                    && ((txtProfessionalCard.getText()).equals("") == false)
+                    && ((txtYearsExperience.getText()).equals("") == false)) {
+                try {
+                    login.saveData(user, password, id);
+                    Nutritionist nutritionist = new Nutritionist(id, userType,
+                            names, lastnames, sex, birthday, phone, email,
+                            yearsExperience, professionalCard);
+                    nutritionist.saveData();
+                    JOptionPane.showMessageDialog(rootPane, "Datos guardados con éxito");
+                } catch (Exception ex) {
+                    Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println("Guardando datos nutricionista");
+                for (int i = 0; JpanelSignUp.getComponents().length > i; i++) {
+                    if (JpanelSignUp.getComponents()[i] instanceof JTextField) {
+                        ((JTextField) JpanelSignUp.getComponents()[i]).setText("");
+                    } else if (JpanelSignUp.getComponents()[i] instanceof JPasswordField) {
+                        ((JPasswordField) JpanelSignUp.getComponents()[i]).setText("");
                     }
-                    System.out.println("Guardando datos nutricionista");
-                    for (int i = 0; JpanelSignUp.getComponents().length > i; i++) {
-                        if (JpanelSignUp.getComponents()[i] instanceof JTextField) {
-                            ((JTextField) JpanelSignUp.getComponents()[i]).setText("");
-                        } else if (JpanelSignUp.getComponents()[i] instanceof JPasswordField) {
-                            ((JPasswordField) JpanelSignUp.getComponents()[i]).setText("");
-                        }
+                }
+                for (int i = 0; jPanelAditionalData.getComponents().length > i; i++) {
+                    if (jPanelAditionalData.getComponents()[i] instanceof JTextField) {
+                        ((JTextField) jPanelAditionalData.getComponents()[i]).setText("");
+                    } else if (jPanelAditionalData.getComponents()[i] instanceof JPasswordField) {
+                        ((JPasswordField) jPanelAditionalData.getComponents()[i]).setText("");
                     }
-                    for (int i = 0; jPanelAditionalData.getComponents().length > i; i++) {
-                        if (jPanelAditionalData.getComponents()[i] instanceof JTextField) {
-                            ((JTextField) jPanelAditionalData.getComponents()[i]).setText("");
-                        } else if (jPanelAditionalData.getComponents()[i] instanceof JPasswordField) {
-                            ((JPasswordField) jPanelAditionalData.getComponents()[i]).setText("");
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Datos NO pueden estar vacios");
-                    System.out.println("No Guardado. Datos vacios nutricionista");
                 }
             } else {
-                if (((txtUser.getText()).equals("") == false)
-                        && (((txtPasswordField.getText()).equals("") == false))
-                        && ((txtConfirmPasswordField.getText()).equals("") == false)
-                        && ((txtNames.getText()).equals("") == false)
-                        && ((txtLastnames.getText()).equals("") == false)
-                        && ((txtId.getText()).equals("") == false)
-                        && ((txtPhone.getText()).equals("") == false)
-                        && ((txtEmail.getText()).equals("") == false)
-                        && ((txtBirthday.getText()).equals("") == false)
-                        && ((txtAge.getText()).equals("") == false)) {
-
-                    try {
-                        users.saveData(user, password, id);
-                        Patient patient = new Patient(id, userType, names, lastnames,
-                                sex, birthday, phone, email, age, athlete);
-                        patient.saveData();
-                        JOptionPane.showMessageDialog(rootPane, "Datos guardados con éxito");
-                    } catch (Exception ex) {
-                        Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    System.out.println("Guardando datos del paciente");
-
-                    for (int i = 0; JpanelSignUp.getComponents().length > i; i++) {
-                        if (JpanelSignUp.getComponents()[i] instanceof JTextField) {
-                            ((JTextField) JpanelSignUp.getComponents()[i]).setText("");
-                        } else if (JpanelSignUp.getComponents()[i] instanceof JPasswordField) {
-                            ((JPasswordField) JpanelSignUp.getComponents()[i]).setText("");
-                        }
-                    }
-                    for (int i = 0; jPanelAditionalData.getComponents().length > i; i++) {
-                        if (jPanelAditionalData.getComponents()[i] instanceof JTextField) {
-                            ((JTextField) jPanelAditionalData.getComponents()[i]).setText("");
-                        } else if (jPanelAditionalData.getComponents()[i] instanceof JPasswordField) {
-                            ((JPasswordField) jPanelAditionalData.getComponents()[i]).setText("");
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Datos NO pueden estar vacios");
-                    System.out.println("No Guardado. Datos vacios del Paciente");
-                }
+                JOptionPane.showMessageDialog(rootPane, "Datos NO pueden estar vacios");
+                System.out.println("No Guardado. Datos vacios nutricionista");
             }
-        
+        } else {
+            if (((txtUser.getText()).equals("") == false)
+                    && (((txtPasswordField.getText()).equals("") == false))
+                    && ((txtConfirmPasswordField.getText()).equals("") == false)
+                    && ((txtNames.getText()).equals("") == false)
+                    && ((txtLastnames.getText()).equals("") == false)
+                    && ((txtId.getText()).equals("") == false)
+                    && ((txtPhone.getText()).equals("") == false)
+                    && ((txtEmail.getText()).equals("") == false)
+                    && ((txtBirthday.getText()).equals("") == false)
+                    && ((txtAge.getText()).equals("") == false)) {
+
+                try {
+                    users.saveData(user, password, id);
+                    Patient patient = new Patient(id, userType, names, lastnames,
+                            sex, birthday, phone, email, age, athlete);
+                    patient.saveData();
+                    JOptionPane.showMessageDialog(rootPane, "Datos guardados con éxito");
+                } catch (Exception ex) {
+                    Logger.getLogger(EditUserProfile.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println("Guardando datos del paciente");
+
+                for (int i = 0; JpanelSignUp.getComponents().length > i; i++) {
+                    if (JpanelSignUp.getComponents()[i] instanceof JTextField) {
+                        ((JTextField) JpanelSignUp.getComponents()[i]).setText("");
+                    } else if (JpanelSignUp.getComponents()[i] instanceof JPasswordField) {
+                        ((JPasswordField) JpanelSignUp.getComponents()[i]).setText("");
+                    }
+                }
+                for (int i = 0; jPanelAditionalData.getComponents().length > i; i++) {
+                    if (jPanelAditionalData.getComponents()[i] instanceof JTextField) {
+                        ((JTextField) jPanelAditionalData.getComponents()[i]).setText("");
+                    } else if (jPanelAditionalData.getComponents()[i] instanceof JPasswordField) {
+                        ((JPasswordField) jPanelAditionalData.getComponents()[i]).setText("");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Datos NO pueden estar vacios");
+                System.out.println("No Guardado. Datos vacios del Paciente");
+            }
+        }
+
         this.setVisible(false);//*/
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -1047,9 +1073,6 @@ public class EditUserProfile extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelSignUp;

@@ -15,7 +15,8 @@ import logicBusiness.ExportData;
 public class Patient extends User implements ExportData {
 
     private final String nameDoc = "userProfile.txt";
-    private final String pathfile = new File("").getAbsolutePath() + "\\src\\resources\\base\\" + nameDoc;
+    private final String pathfile = nameDoc;
+    //private final String pathfile = new File("").getAbsolutePath() + "\\src\\resources\\base\\" + nameDoc;
     private String age, sports;
     AnthropometricMeasurement measurements = new AnthropometricMeasurement();
     private final BufferedReader bufferRead = null;

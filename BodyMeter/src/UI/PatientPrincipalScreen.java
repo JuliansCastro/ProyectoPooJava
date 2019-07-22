@@ -118,6 +118,7 @@ public class PatientPrincipalScreen extends javax.swing.JFrame {
         jLabelUserType = new javax.swing.JLabel();
         jLabelName = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
+        btnEditUserProfile = new javax.swing.JButton();
         jPanelSignUpTitle = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jpanelScore = new javax.swing.JPanel();
@@ -148,6 +149,14 @@ public class PatientPrincipalScreen extends javax.swing.JFrame {
             }
         });
 
+        btnEditUserProfile.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnEditUserProfile.setText("Editar perfil");
+        btnEditUserProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditUserProfileActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -158,7 +167,9 @@ public class PatientPrincipalScreen extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnEditUserProfile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
                         .addGap(0, 23, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -168,7 +179,9 @@ public class PatientPrincipalScreen extends javax.swing.JFrame {
                 .addComponent(jLabelUserType, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                .addComponent(btnEditUserProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -282,9 +295,16 @@ public class PatientPrincipalScreen extends javax.swing.JFrame {
         lgScreen.setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void btnEditUserProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditUserProfileActionPerformed
+        EditUserProfile ep = new EditUserProfile();
+        ep.setVisible(true);
+        ep.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }//GEN-LAST:event_btnEditUserProfileActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditUserProfile;
     private javax.swing.JButton btnLogout;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel3;

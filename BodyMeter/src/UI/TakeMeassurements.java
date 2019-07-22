@@ -1,0 +1,1071 @@
+package UI;
+
+import data.Nutritionist;
+import data.Patient;
+import data.User;
+import java.awt.Image;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import logicBusiness.Login;
+
+/**
+ *
+ * @author Satellite COREi3
+ */
+public class TakeMeassurements extends javax.swing.JFrame {
+
+    /**
+     * Creates new form UserRegisterScreen
+     */
+    private final User users = new User();
+    private final Login login = new Login();
+    private HashMap<String, String[]> listOfNutritionists = new HashMap<>();
+    private HashMap<String, String[]> listOfPatients = new HashMap<>();
+    private HashMap<String, String[]> loginList = new HashMap<>();
+    private String patientNames = "", patientLastnames = "", patientId = "",
+            patientPhone = "", patientEmail = "", patientBirthday = "", patientSex = "",
+            professionalCard = "", yearsExperience = "", patientAge = "", athlete = "";
+
+    //Medidas básicas 
+    private double peso, tallaAltura, tallaSentado, envergaduraBrazos;
+
+    //Pliegues cutáneos
+    private double pliegueTriceps, pliegueSubescapular, pliegueBiceps, pliegueCrestaIliaca,
+            pliegueSupraespinal, pliegueAbdominal, pliegueAnteriorMuslo,
+            pliegueMedialPierna, plieguePectoral;
+
+    //Perimetros
+    private double perimetroCabeza, perimetroCuello, perimetroBrazoRelajado,
+            perimetroBrazoFlexionado, perimetroAnteBrazo, perimetroMuñeca,
+            perimetroToracicoMesoesternal, perimetroAbdominalCinturaMinimo,
+            perimetroAbdominal, perimetroGluteoCaderaMaximo, perimetroMusloA1cm,
+            perimetroMusloTercioMedio, perimetroPiernaMaximo, perimetroTobilloMinimo;
+
+    //Diametros
+    private double diametroBiacromial, diametroAnteroPosteriorAbdominal,
+            diametroBiiliocrestal, diametroTrasversoToraxMesoesternal,
+            diametroAnteroPosteriorToraxPecho, diametroBiepicondileoHumeral,
+            diametroBiestiloideoMuñeca, diametroBiepicondileoFemoral;
+
+    public TakeMeassurements() {
+        initComponents();
+
+        setLocationRelativeTo(null);
+        setResizable(true);
+
+        btnSave.setEnabled(false);
+        txtPhone.requestFocus();
+        rbtFemale.setEnabled(false);
+        rbtMale.setEnabled(false);
+
+        setIconImage(new ImageIcon(getClass().getResource("/resources/img/icono.jpg")).getImage());
+
+        ((JPanel) getContentPane()).setOpaque(false);
+        ImageIcon background = new ImageIcon(this.getClass().getResource("/resources/img/logotipoH.jpg"));
+
+        background = new ImageIcon(background.getImage().getScaledInstance(getWidth() / 4, getHeight() / 8, Image.SCALE_SMOOTH));
+
+        JLabel fondo = new JLabel();
+        fondo.setIcon(background);
+
+        getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
+        fondo.setBounds(550, 20, background.getIconWidth(), background.getIconHeight());
+
+        try {
+            users.readDatabase();
+            login.readDatabase();
+            listOfNutritionists = users.getListOfNutritionistsData();
+            listOfPatients = users.getListOfPatientData();
+
+            loginList = login.getUserLoginList();
+            String id = NutritionistPrincipalScreen.getIdPatientToSee();
+
+            String[] loginData = loginList.get(id);
+            String[] userDataPatient = listOfPatients.get(loginData[0]);
+
+            //System.out.println("INFO USER: " + Arrays.toString(loginData) + Arrays.toString(userData));
+            if (listOfPatients.containsKey(id)) {
+
+                jLabelIdNumber.setText(loginData[0]);
+                jLabelNames.setText(userDataPatient[1] + " " + userDataPatient[2]);
+
+                txtPhone.setText(userDataPatient[5]);
+                txtEmail.setText(userDataPatient[6]);
+
+                if (userDataPatient[3].equals("0")) {
+                    rbtFemale.setSelected(true);
+                } else {
+                    rbtMale.setSelected(true);
+                }
+                if (userDataPatient[8].equals("0")) {
+                    rbtYesAthlete.setSelected(true);
+                } else {
+                    rbtNoAthlete.setSelected(true);
+                }
+
+                /*txtBirthday.setText(userDataPatient[4]);
+                txtAge.setText(userDataPatient[7]);
+                txtAge.setText(userDataPatient[2]);*/
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(TakeMeassurements.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        rbtGroupSex = new javax.swing.ButtonGroup();
+        buttonGroupSport = new javax.swing.ButtonGroup();
+        JpanelSignUp = new javax.swing.JPanel();
+        jPanelSignUpTitle = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanelPatientData = new javax.swing.JPanel();
+        jLabelTitleId = new javax.swing.JLabel();
+        jLabelIdNumber = new javax.swing.JLabel();
+        jLabelTitleNames = new javax.swing.JLabel();
+        jLabelNames = new javax.swing.JLabel();
+        jLabelTitleId1 = new javax.swing.JLabel();
+        jLabelTitleId2 = new javax.swing.JLabel();
+        txtPhone = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        rbtFemale = new javax.swing.JRadioButton();
+        rbtMale = new javax.swing.JRadioButton();
+        jLabelTitleSex = new javax.swing.JLabel();
+        jLabelAthlete = new javax.swing.JLabel();
+        rbtYesAthlete = new javax.swing.JRadioButton();
+        rbtNoAthlete = new javax.swing.JRadioButton();
+        jPanelMeassurements = new javax.swing.JPanel();
+        jLabelBasicMeassure = new javax.swing.JLabel();
+        jLabelSkinFolds = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtMass1 = new javax.swing.JTextField();
+        txtMass2 = new javax.swing.JTextField();
+        txtMassAverage = new javax.swing.JTextField();
+        txtMass3 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtSize1 = new javax.swing.JTextField();
+        txtSitSize1 = new javax.swing.JTextField();
+        txtEnvergadura1 = new javax.swing.JTextField();
+        txtSize2 = new javax.swing.JTextField();
+        txtSize3 = new javax.swing.JTextField();
+        txtSizeAverage = new javax.swing.JTextField();
+        txtSitSize2 = new javax.swing.JTextField();
+        txtSitSize3 = new javax.swing.JTextField();
+        txtSitSize4 = new javax.swing.JTextField();
+        txtEnvergadura2 = new javax.swing.JTextField();
+        txtEnvergadura3 = new javax.swing.JTextField();
+        txtEnvergaduraAverage = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txtPliegueTriceps1 = new javax.swing.JTextField();
+        txtPliegueTriceps2 = new javax.swing.JTextField();
+        txtPliegueTriceps3 = new javax.swing.JTextField();
+        txtPliegueTricepsAverage = new javax.swing.JTextField();
+        txtPlieguesubescapular1 = new javax.swing.JTextField();
+        txtPlieguesubescapular2 = new javax.swing.JTextField();
+        txtPlieguesubescapular3 = new javax.swing.JTextField();
+        txtPlieguesAverage = new javax.swing.JTextField();
+        txtPliegueBiceps1 = new javax.swing.JTextField();
+        txtPliegueCresta1 = new javax.swing.JTextField();
+        txtPlieguesSupraespinal1 = new javax.swing.JTextField();
+        txtPliegueAbdominal1 = new javax.swing.JTextField();
+        txtPlieguesMusloAnt1 = new javax.swing.JTextField();
+        txtPlieguePiernaMedial1 = new javax.swing.JTextField();
+        txtPliegueBiceps2 = new javax.swing.JTextField();
+        txtPliegueCresta2 = new javax.swing.JTextField();
+        txtPlieguesSupraespinal2 = new javax.swing.JTextField();
+        txtPliegueAbdominal2 = new javax.swing.JTextField();
+        txtPlieguesMusloAnt2 = new javax.swing.JTextField();
+        txtPlieguePiernaMedial2 = new javax.swing.JTextField();
+        txtPlieguePiernaMedial3 = new javax.swing.JTextField();
+        txtPlieguesMusloAnt3 = new javax.swing.JTextField();
+        txtPliegueCresta3 = new javax.swing.JTextField();
+        txtPlieguesSupraespinal3 = new javax.swing.JTextField();
+        txtPliegueBiceps3 = new javax.swing.JTextField();
+        txtPliegueAbdominal3 = new javax.swing.JTextField();
+        txtPlieguesMusloAntAverage = new javax.swing.JTextField();
+        txtPliegueBicepsAverage = new javax.swing.JTextField();
+        txtPlieguesSupraespinalAverage = new javax.swing.JTextField();
+        txtPlieguePiernaMedialAverage = new javax.swing.JTextField();
+        txtPliegueAbdominalAverage = new javax.swing.JTextField();
+        txtPliegueCrestaAverage = new javax.swing.JTextField();
+        jPanelButtons = new javax.swing.JPanel();
+        btnCancel = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        JpanelSignUp.setBackground(new java.awt.Color(255, 255, 255));
+        JpanelSignUp.setOpaque(false);
+
+        jPanelSignUpTitle.setBackground(new java.awt.Color(0, 255, 102));
+
+        jLabel1.setBackground(new java.awt.Color(102, 255, 102));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setText("Toma de mediciones paciente:");
+
+        javax.swing.GroupLayout jPanelSignUpTitleLayout = new javax.swing.GroupLayout(jPanelSignUpTitle);
+        jPanelSignUpTitle.setLayout(jPanelSignUpTitleLayout);
+        jPanelSignUpTitleLayout.setHorizontalGroup(
+            jPanelSignUpTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSignUpTitleLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30))
+        );
+        jPanelSignUpTitleLayout.setVerticalGroup(
+            jPanelSignUpTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSignUpTitleLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabelTitleId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelTitleId.setText("Identidificación: ");
+
+        jLabelIdNumber.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelIdNumber.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabelTitleNames.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelTitleNames.setText("Nombre:");
+
+        jLabelNames.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelNames.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabelTitleId1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelTitleId1.setText("Teléfono:");
+
+        jLabelTitleId2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelTitleId2.setText("Email:");
+
+        rbtGroupSex.add(rbtFemale);
+        rbtFemale.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rbtFemale.setText("Femenino");
+
+        rbtGroupSex.add(rbtMale);
+        rbtMale.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rbtMale.setText("Masculino");
+
+        jLabelTitleSex.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelTitleSex.setText("Sexo:");
+
+        jLabelAthlete.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelAthlete.setText("Deportista: ");
+
+        buttonGroupSport.add(rbtYesAthlete);
+        rbtYesAthlete.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rbtYesAthlete.setText("Si");
+        rbtYesAthlete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbtYesAthleteMouseClicked(evt);
+            }
+        });
+        rbtYesAthlete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtYesAthleteActionPerformed(evt);
+            }
+        });
+        rbtYesAthlete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                rbtYesAthleteKeyPressed(evt);
+            }
+        });
+
+        buttonGroupSport.add(rbtNoAthlete);
+        rbtNoAthlete.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rbtNoAthlete.setText("No");
+        rbtNoAthlete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbtNoAthleteMouseClicked(evt);
+            }
+        });
+        rbtNoAthlete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                rbtNoAthleteKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelPatientDataLayout = new javax.swing.GroupLayout(jPanelPatientData);
+        jPanelPatientData.setLayout(jPanelPatientDataLayout);
+        jPanelPatientDataLayout.setHorizontalGroup(
+            jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPatientDataLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelTitleId)
+                    .addComponent(jLabelTitleId1)
+                    .addComponent(jLabelTitleSex))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelPatientDataLayout.createSequentialGroup()
+                        .addGroup(jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelIdNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelTitleNames)
+                            .addComponent(jLabelTitleId2)))
+                    .addGroup(jPanelPatientDataLayout.createSequentialGroup()
+                        .addComponent(rbtFemale)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtMale)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelPatientDataLayout.createSequentialGroup()
+                        .addComponent(jLabelAthlete)
+                        .addGap(23, 23, 23)
+                        .addComponent(rbtYesAthlete)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtNoAthlete)
+                        .addGap(0, 91, Short.MAX_VALUE))
+                    .addComponent(jLabelNames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtEmail))
+                .addContainerGap())
+        );
+        jPanelPatientDataLayout.setVerticalGroup(
+            jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPatientDataLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabelTitleNames, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(jLabelIdNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelNames, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitleId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelAthlete)
+                        .addComponent(rbtYesAthlete)
+                        .addComponent(rbtNoAthlete))
+                    .addGroup(jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rbtFemale)
+                        .addComponent(rbtMale)
+                        .addComponent(jLabelTitleSex, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelPatientDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelTitleId1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelTitleId2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelPatientDataLayout.createSequentialGroup()
+                        .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+
+        jLabelBasicMeassure.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelBasicMeassure.setText("MEDICIONES BÁSICAS");
+
+        jLabelSkinFolds.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelSkinFolds.setText("PLIEGUES CUTÁNEOS");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Masa corporal:");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Estatura:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Talla sentado:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Envergadura brazos");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Medición 1");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Medición 2");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Medición 2");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setText("Promedio");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("Pliegue del triceps (mm):");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setText("Pliegue subescapular (mm):");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setText("Pliegue del biceps (mm):");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setText("Pliegue de la cresta iliaca (mm):");
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setText("Pliegue supraespinal (mm):");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setText("Pliegue abdominal (mm):");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel16.setText("Pliegue del muslo anterior (mm):");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setText("Pliegue de la pierna medial (mm):");
+
+        javax.swing.GroupLayout jPanelMeassurementsLayout = new javax.swing.GroupLayout(jPanelMeassurements);
+        jPanelMeassurements.setLayout(jPanelMeassurementsLayout);
+        jPanelMeassurementsLayout.setHorizontalGroup(
+            jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabelBasicMeassure)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabelSkinFolds)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMass2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel7))
+                            .addComponent(txtSize3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSitSize2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEnvergadura2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPliegueTriceps2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPlieguesubescapular2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMeassurementsLayout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtPlieguePiernaMedial1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMeassurementsLayout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                            .addGap(14, 14, 14)
+                                            .addComponent(txtPlieguesMusloAnt1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMeassurementsLayout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txtPliegueAbdominal1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtPlieguesSupraespinal1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                        .addGap(14, 14, 14)
+                                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtPlieguesubescapular1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtPliegueTriceps1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtMass1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtSize1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtSitSize1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtEnvergadura1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtPliegueBiceps1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtPliegueCresta1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPlieguePiernaMedial2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMeassurementsLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtPlieguesMusloAnt2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtPliegueAbdominal2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtPlieguesSupraespinal2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtPliegueBiceps2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPliegueCresta2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(50, 50, 50)
+                .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                .addComponent(txtEnvergadura3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtEnvergaduraAverage, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                .addComponent(txtSitSize3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtSitSize4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtMass3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
+                                        .addComponent(jLabel8)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtMassAverage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMeassurementsLayout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addGap(27, 27, 27))))
+                            .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                .addComponent(txtSize2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtSizeAverage, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                .addComponent(txtPliegueTriceps3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtPliegueTricepsAverage, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                            .addComponent(txtPlieguesubescapular3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtPlieguesAverage, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPlieguePiernaMedial3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMeassurementsLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtPlieguesMusloAnt3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtPliegueAbdominal3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtPlieguesSupraespinal3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtPliegueBiceps3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPliegueCresta3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPlieguePiernaMedialAverage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMeassurementsLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtPlieguesMusloAntAverage, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtPliegueAbdominalAverage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtPlieguesSupraespinalAverage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtPliegueBicepsAverage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPliegueCrestaAverage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap())
+        );
+        jPanelMeassurementsLayout.setVerticalGroup(
+            jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelBasicMeassure, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                        .addComponent(txtMass1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSize1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSitSize1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(txtEnvergadura1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(txtPliegueTriceps1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPlieguesubescapular1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPliegueBiceps1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(txtPliegueCresta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(txtPlieguesSupraespinal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(txtPliegueAbdominal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(txtPlieguesMusloAnt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(txtPlieguePiernaMedial1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtMass2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMass3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMassAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtSize2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSize3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSizeAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtSitSize2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSitSize3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSitSize4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtEnvergadura2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEnvergadura3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEnvergaduraAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelSkinFolds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(txtPliegueTriceps2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPliegueTriceps3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPliegueTricepsAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtPlieguesubescapular2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPlieguesubescapular3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPlieguesAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel12)
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabel13))
+                            .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(jPanelMeassurementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                        .addComponent(txtPliegueBiceps3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(txtPliegueCresta3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtPlieguesSupraespinal3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPliegueAbdominal3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPlieguesMusloAnt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPlieguePiernaMedial3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                        .addComponent(txtPliegueBiceps2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(txtPliegueCresta2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtPlieguesSupraespinal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPliegueAbdominal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPlieguesMusloAnt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPlieguePiernaMedial2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanelMeassurementsLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPliegueBicepsAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtPliegueCrestaAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtPlieguesSupraespinalAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPliegueAbdominalAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPlieguesMusloAntAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPlieguePiernaMedialAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(29, Short.MAX_VALUE))))
+        );
+
+        javax.swing.GroupLayout JpanelSignUpLayout = new javax.swing.GroupLayout(JpanelSignUp);
+        JpanelSignUp.setLayout(JpanelSignUpLayout);
+        JpanelSignUpLayout.setHorizontalGroup(
+            JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JpanelSignUpLayout.createSequentialGroup()
+                .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JpanelSignUpLayout.createSequentialGroup()
+                        .addGroup(JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JpanelSignUpLayout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(jPanelSignUpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(JpanelSignUpLayout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(jPanelPatientData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanelMeassurements, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        JpanelSignUpLayout.setVerticalGroup(
+            JpanelSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JpanelSignUpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelSignUpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jPanelPatientData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addComponent(jPanelMeassurements, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+
+        btnCancel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnCancel.setText("CANCELAR");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        btnSave.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnSave.setText("GUARDAR");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        btnSave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSaveKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelButtonsLayout = new javax.swing.GroupLayout(jPanelButtons);
+        jPanelButtons.setLayout(jPanelButtonsLayout);
+        jPanelButtonsLayout.setHorizontalGroup(
+            jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelButtonsLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(btnCancel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
+        );
+        jPanelButtonsLayout.setVerticalGroup(
+            jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JpanelSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jPanelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(JpanelSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSaveKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSaveKeyPressed
+
+    private double average(double m1, double m2, double m3) {
+        double average = 0;
+        try {
+            average = (m1 + m2 + m3) / 3;
+        } catch (Exception e) {
+            System.out.println("UI.TakeMeassurements.average() dividido por cero");
+        }
+
+        return average;
+    }
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        try {
+            users.readDatabase();
+        } catch (Exception ex) {
+            Logger.getLogger(TakeMeassurements.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        /*---------------------------------------------*/
+        double m1 = 0, m2 = 0, m3 = 0;
+        m1 = Double.parseDouble(txtEnvergadura1.getText());
+        m2 = Double.parseDouble(txtEnvergadura2.getText());
+        m3 = Double.parseDouble(txtEnvergadura3.getText());
+        double envergaduraAverage = average(m1,m2,m3);
+        /*String s = envergaduraAverage;
+        txtEnvergaduraAverage.setText();*/
+        /*---------------------------------------------*/
+
+
+ /*patientNames = this.jLabelNames.getText().trim();
+        patientLastnames = this.txtLastnames.getText().trim();*/
+        patientId = this.jLabelIdNumber.getText().trim();
+        patientPhone = this.txtPhone.getText().replaceAll(" ", "").trim();
+        patientEmail = this.txtEmail.getText().replaceAll(" ", "").trim();
+        //patientBirthday = this.txtBirthday.getText().replaceAll(" ", "").trim();
+        if (this.rbtFemale.isSelected()) {
+            patientSex = "0";
+        } else {
+            patientSex = "1";
+        }
+        /*professionalCard = this.txtProfessionalCard.getText().replaceAll(" ", "").trim();
+        yearsExperience = this.txtYearsExperience.getText().replaceAll(" ", "").trim();*/
+        //patientAge = this.txtAge.getText().replaceAll(" ", "").trim();
+        if (this.rbtYesAthlete.isSelected()) {
+            athlete = "0";
+        } else {
+            athlete = "1";
+        }
+
+        /*-----------------------File userProfile.txt---------------------*/
+ /*
+        if (cbxTypeUser.getSelectedItem().toString().equals("Nutricionista")) {
+            if (((txtUser.getText()).equals("") == false)
+                    && (((txtPasswordField.getText()).equals("") == false))
+                    && ((txtConfirmPasswordField.getText()).equals("") == false)
+                    && ((txtNames.getText()).equals("") == false)
+                    && ((txtLastnames.getText()).equals("") == false)
+                    && ((txtId.getText()).equals("") == false)
+                    && ((txtPhone.getText()).equals("") == false)
+                    && ((txtEmail.getText()).equals("") == false)
+                    && ((txtBirthday.getText()).equals("") == false)
+                    && ((txtProfessionalCard.getText()).equals("") == false)
+                    && ((txtYearsExperience.getText()).equals("") == false)) {
+                try {
+                    login.saveData(user, password, patientId);
+                    Nutritionist nutritionist = new Nutritionist(patientId, userType,
+                            patientNames, patientLastnames, patientSex, patientBirthday, patientPhone, patientEmail,
+                            yearsExperience, professionalCard);
+                    nutritionist.saveData();
+                    JOptionPane.showMessageDialog(rootPane, "Datos guardados con éxito");
+                } catch (Exception ex) {
+                    Logger.getLogger(TakeMeassurements.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println("Guardando datos nutricionista");
+                for (int i = 0; JpanelSignUp.getComponents().length > i; i++) {
+                    if (JpanelSignUp.getComponents()[i] instanceof JTextField) {
+                        ((JTextField) JpanelSignUp.getComponents()[i]).setText("");
+                    } else if (JpanelSignUp.getComponents()[i] instanceof JPasswordField) {
+                        ((JPasswordField) JpanelSignUp.getComponents()[i]).setText("");
+                    }
+                }
+                for (int i = 0; jPanelAditionalData.getComponents().length > i; i++) {
+                    if (jPanelAditionalData.getComponents()[i] instanceof JTextField) {
+                        ((JTextField) jPanelAditionalData.getComponents()[i]).setText("");
+                    } else if (jPanelAditionalData.getComponents()[i] instanceof JPasswordField) {
+                        ((JPasswordField) jPanelAditionalData.getComponents()[i]).setText("");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Datos NO pueden estar vacios");
+                System.out.println("No Guardado. Datos vacios nutricionista");
+            }
+        } else { //FIN nutricionista
+            if (((txtUser.getText()).equals("") == false)
+                    && (((txtPasswordField.getText()).equals("") == false))
+                    && ((txtConfirmPasswordField.getText()).equals("") == false)
+                    && ((txtNames.getText()).equals("") == false)
+                    && ((txtLastnames.getText()).equals("") == false)
+                    && ((txtId.getText()).equals("") == false)
+                    && ((txtPhone.getText()).equals("") == false)
+                    && ((txtEmail.getText()).equals("") == false)
+                    && ((txtBirthday.getText()).equals("") == false)
+                    && ((txtAge.getText()).equals("") == false)) {
+
+                try {
+                    users.saveData(user, password, patientId);
+                    Patient patient = new Patient(patientId, userType, patientNames, patientLastnames,
+                            patientSex, patientBirthday, patientPhone, patientEmail, patientAge, athlete);
+                    patient.saveData();
+                    JOptionPane.showMessageDialog(rootPane, "Datos guardados con éxito");
+                } catch (Exception ex) {
+                    Logger.getLogger(TakeMeassurements.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println("Guardando datos del paciente");
+
+                for (int i = 0; JpanelSignUp.getComponents().length > i; i++) {
+                    if (JpanelSignUp.getComponents()[i] instanceof JTextField) {
+                        ((JTextField) JpanelSignUp.getComponents()[i]).setText("");
+                    } else if (JpanelSignUp.getComponents()[i] instanceof JPasswordField) {
+                        ((JPasswordField) JpanelSignUp.getComponents()[i]).setText("");
+                    }
+                }
+                for (int i = 0; jPanelAditionalData.getComponents().length > i; i++) {
+                    if (jPanelAditionalData.getComponents()[i] instanceof JTextField) {
+                        ((JTextField) jPanelAditionalData.getComponents()[i]).setText("");
+                    } else if (jPanelAditionalData.getComponents()[i] instanceof JPasswordField) {
+                        ((JPasswordField) jPanelAditionalData.getComponents()[i]).setText("");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Datos NO pueden estar vacios");
+                System.out.println("No Guardado. Datos vacios del Paciente");
+            }
+        }//Fin paciente*/
+        this.setVisible(false);//*/
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void rbtYesAthleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtYesAthleteMouseClicked
+        // TODO add your handling code here:
+        btnSave.setVisible(true);
+        btnSave.requestFocus();
+    }//GEN-LAST:event_rbtYesAthleteMouseClicked
+
+    private void rbtYesAthleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtYesAthleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtYesAthleteActionPerformed
+
+    private void rbtYesAthleteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rbtYesAthleteKeyPressed
+        char nextTextField = (char) evt.getKeyCode();
+        if (nextTextField == evt.VK_ENTER) {
+            this.btnSave.setVisible(true);
+            this.btnSave.requestFocus();
+        }
+    }//GEN-LAST:event_rbtYesAthleteKeyPressed
+
+    private void rbtNoAthleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbtNoAthleteMouseClicked
+        // TODO add your handling code here:
+        btnSave.setVisible(true);
+        btnSave.requestFocus();
+    }//GEN-LAST:event_rbtNoAthleteMouseClicked
+
+    private void rbtNoAthleteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rbtNoAthleteKeyPressed
+        char nextTextField = (char) evt.getKeyCode();
+        if (nextTextField == evt.VK_ENTER) {
+            this.btnSave.setVisible(true);
+            this.btnSave.requestFocus();
+        }
+    }//GEN-LAST:event_rbtNoAthleteKeyPressed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JpanelSignUp;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSave;
+    private javax.swing.ButtonGroup buttonGroupSport;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelAthlete;
+    private javax.swing.JLabel jLabelBasicMeassure;
+    private javax.swing.JLabel jLabelIdNumber;
+    private javax.swing.JLabel jLabelNames;
+    private javax.swing.JLabel jLabelSkinFolds;
+    private javax.swing.JLabel jLabelTitleId;
+    private javax.swing.JLabel jLabelTitleId1;
+    private javax.swing.JLabel jLabelTitleId2;
+    private javax.swing.JLabel jLabelTitleNames;
+    private javax.swing.JLabel jLabelTitleSex;
+    private javax.swing.JPanel jPanelButtons;
+    private javax.swing.JPanel jPanelMeassurements;
+    private javax.swing.JPanel jPanelPatientData;
+    private javax.swing.JPanel jPanelSignUpTitle;
+    private javax.swing.JRadioButton rbtFemale;
+    private javax.swing.ButtonGroup rbtGroupSex;
+    private javax.swing.JRadioButton rbtMale;
+    private javax.swing.JRadioButton rbtNoAthlete;
+    private javax.swing.JRadioButton rbtYesAthlete;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtEnvergadura1;
+    private javax.swing.JTextField txtEnvergadura2;
+    private javax.swing.JTextField txtEnvergadura3;
+    private javax.swing.JTextField txtEnvergaduraAverage;
+    private javax.swing.JTextField txtMass1;
+    private javax.swing.JTextField txtMass2;
+    private javax.swing.JTextField txtMass3;
+    private javax.swing.JTextField txtMassAverage;
+    private javax.swing.JTextField txtPhone;
+    private javax.swing.JTextField txtPliegueAbdominal1;
+    private javax.swing.JTextField txtPliegueAbdominal2;
+    private javax.swing.JTextField txtPliegueAbdominal3;
+    private javax.swing.JTextField txtPliegueAbdominalAverage;
+    private javax.swing.JTextField txtPliegueBiceps1;
+    private javax.swing.JTextField txtPliegueBiceps2;
+    private javax.swing.JTextField txtPliegueBiceps3;
+    private javax.swing.JTextField txtPliegueBicepsAverage;
+    private javax.swing.JTextField txtPliegueCresta1;
+    private javax.swing.JTextField txtPliegueCresta2;
+    private javax.swing.JTextField txtPliegueCresta3;
+    private javax.swing.JTextField txtPliegueCrestaAverage;
+    private javax.swing.JTextField txtPlieguePiernaMedial1;
+    private javax.swing.JTextField txtPlieguePiernaMedial2;
+    private javax.swing.JTextField txtPlieguePiernaMedial3;
+    private javax.swing.JTextField txtPlieguePiernaMedialAverage;
+    private javax.swing.JTextField txtPliegueTriceps1;
+    private javax.swing.JTextField txtPliegueTriceps2;
+    private javax.swing.JTextField txtPliegueTriceps3;
+    private javax.swing.JTextField txtPliegueTricepsAverage;
+    private javax.swing.JTextField txtPlieguesAverage;
+    private javax.swing.JTextField txtPlieguesMusloAnt1;
+    private javax.swing.JTextField txtPlieguesMusloAnt2;
+    private javax.swing.JTextField txtPlieguesMusloAnt3;
+    private javax.swing.JTextField txtPlieguesMusloAntAverage;
+    private javax.swing.JTextField txtPlieguesSupraespinal1;
+    private javax.swing.JTextField txtPlieguesSupraespinal2;
+    private javax.swing.JTextField txtPlieguesSupraespinal3;
+    private javax.swing.JTextField txtPlieguesSupraespinalAverage;
+    private javax.swing.JTextField txtPlieguesubescapular1;
+    private javax.swing.JTextField txtPlieguesubescapular2;
+    private javax.swing.JTextField txtPlieguesubescapular3;
+    private javax.swing.JTextField txtSitSize1;
+    private javax.swing.JTextField txtSitSize2;
+    private javax.swing.JTextField txtSitSize3;
+    private javax.swing.JTextField txtSitSize4;
+    private javax.swing.JTextField txtSize1;
+    private javax.swing.JTextField txtSize2;
+    private javax.swing.JTextField txtSize3;
+    private javax.swing.JTextField txtSizeAverage;
+    // End of variables declaration//GEN-END:variables
+}

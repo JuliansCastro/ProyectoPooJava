@@ -22,6 +22,7 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
      */
     private final User users = new User();
     private final Login login = new Login();
+    private static String idPatientToSee = "";
     private HashMap<String, String[]> listOfNutritionists = new HashMap<>();
     private HashMap<String, String[]> loginList = new HashMap<>();
     private HashMap<String, String[]> patients = null;
@@ -33,7 +34,7 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-
+        btnSee.setEnabled(false);
         loadPatient("");
 
         setIconImage(new ImageIcon(getClass().getResource("/resources/img/icono.jpg")).getImage());
@@ -68,7 +69,7 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
     }
 
     private void loadPatient(String searchId) {
-        String[] titles = {"Nombre", "Apellido", "Antropometrías", "Acciones"};
+        String[] titles = {"Identificación", "Nombre", "Apellido", "Antropometrías", "Acciones"};
         tableModel = new DefaultTableModel(null, titles);
         Patient patient = new Patient();
 
@@ -79,41 +80,58 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
             Logger.getLogger(NutritionistPrincipalScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String[] registro = new String[4];
-        String name = "", lastname = "", anthropometry, actions;
+        String[] registro = new String[5];
+        String id = "", name = "", lastname = "", anthropometry, actions;
 
         if (searchId.equals("") || searchId.equals(" ")) {
-
+            btnSee.setEnabled(false);
             for (Map.Entry<String, String[]> entry : patients.entrySet()) {
+                
                 String key = entry.getKey();
                 String[] patientData = entry.getValue();
+                id = patientData[0];
+                idPatientToSee = patientData[0];
+                setIdPatientToSee(idPatientToSee);
                 name = patientData[1];
                 lastname = patientData[2];
 
-                registro[0] = name;
-                registro[1] = lastname;
-                registro[2] = "Antropometria";
-                registro[3] = "Acciones";
+                registro[0] = id;
+                registro[1] = name;
+                registro[2] = lastname;
+                registro[3] = "Antropometria";
+                registro[4] = "Acciones";
                 tableModel.addRow(registro);
             }
             this.tblPatients.setModel(tableModel);
         } else {
-
-            for (Map.Entry<String, String[]> entry : patients.entrySet()) {
-
-                if (patients.containsKey(searchId)) {
-                    registro[0] = name;
-                    registro[1] = lastname;
-                    registro[2] = "Antropometria";
-                    registro[3] = "Acciones";
-                    tableModel.addRow(registro);
-                } else {
-                    jLabelErrorSearchMessage.setText("*No existen datos del paciente");
-                }
+            if (patients.containsKey(searchId)) {
+                jLabelErrorSearchMessage.setText(" ");
+                btnSee.setEnabled(true);
+                String[] patientData = patients.get(searchId);
+                id = patientData[0];
+                idPatientToSee = id;
+                name = patientData[1];
+                lastname = patientData[2];
+                registro[0] = id;
+                registro[1] = name;
+                registro[2] = lastname;
+                registro[3] = "Antropometria";
+                registro[4] = "Acciones";
+                tableModel.addRow(registro);
+            } else {
+                jLabelErrorSearchMessage.setText("*No existen datos del paciente");
             }
             this.tblPatients.setModel(tableModel);
         }
 
+    }
+
+    public static String getIdPatientToSee() {
+        return idPatientToSee;
+    }
+
+    public void setIdPatientToSee(String idPatientToSee) {
+        this.idPatientToSee = idPatientToSee;
     }
 
     /**
@@ -144,9 +162,9 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
         tblPatients = new javax.swing.JTable();
         btnSearch = new javax.swing.JButton();
         jLabelErrorSearchMessage = new javax.swing.JLabel();
+        btnSee = new javax.swing.JButton();
         jPanelSignUpTitle = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -191,7 +209,7 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnEditUserProfile, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                            .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTabbedPane2))
                         .addGap(0, 23, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -241,6 +259,17 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
                 txtSearchIdActionPerformed(evt);
             }
         });
+        txtSearchId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchIdKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchIdKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchIdKeyTyped(evt);
+            }
+        });
 
         jLabelVoid3.setBackground(new java.awt.Color(153, 153, 153));
         jLabelVoid3.setForeground(new java.awt.Color(255, 255, 255));
@@ -277,6 +306,19 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
         jLabelErrorSearchMessage.setFocusable(false);
         jLabelErrorSearchMessage.setOpaque(true);
 
+        btnSee.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        btnSee.setText("VER MEDIDAS");
+        btnSee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeeActionPerformed(evt);
+            }
+        });
+        btnSee.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSeeKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -288,17 +330,20 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(39, 39, 39)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelErrorSearchMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtSearchId, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
-                        .addGap(132, 132, 132)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(36, 36, 36)
+                        .addComponent(btnSee)
+                        .addGap(32, 32, 32))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,13 +353,19 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
                 .addComponent(jLabelListPatients, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelVoid2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSearch)
-                    .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(3, 3, 3)
-                .addComponent(jLabelErrorSearchMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSearchId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabelErrorSearchMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSee)
+                            .addComponent(btnSearch))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelVoid3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
@@ -359,9 +410,7 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addGap(0, 57, Short.MAX_VALUE))
         );
         jPanelBaseLayout.setVerticalGroup(
             jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,10 +419,8 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
                 .addComponent(jPanelSignUpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                    .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(101, 101, 101))
         );
 
@@ -381,13 +428,13 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelBase, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -421,14 +468,45 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditUserProfileActionPerformed
 
     private void txtSearchIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchIdMouseClicked
-        jLabelErrorSearchMessage.setText("");
+        jLabelErrorSearchMessage.setText(" ");
     }//GEN-LAST:event_txtSearchIdMouseClicked
+
+    private void txtSearchIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchIdKeyPressed
+        char validate = (char) evt.getKeyCode();
+        if (validate == evt.VK_ENTER) {
+            searchText = txtSearchId.getText().trim().replaceAll(" ", "");
+            loadPatient(searchText);
+        }
+    }//GEN-LAST:event_txtSearchIdKeyPressed
+
+    private void txtSearchIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchIdKeyReleased
+
+    }//GEN-LAST:event_txtSearchIdKeyReleased
+
+    private void txtSearchIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchIdKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchIdKeyTyped
+
+    private void btnSeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeeActionPerformed
+        TakeMeassurements tm = new TakeMeassurements();
+        tm.setVisible(true);
+        tm.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }//GEN-LAST:event_btnSeeActionPerformed
+
+    private void btnSeeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSeeKeyPressed
+        char validate = (char) evt.getKeyCode();
+        if (validate == evt.VK_ENTER) {
+            searchText = txtSearchId.getText().trim().replaceAll(" ", "");
+            loadPatient(searchText);
+        }
+    }//GEN-LAST:event_btnSeeKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditUserProfile;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSee;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -444,7 +522,6 @@ public class NutritionistPrincipalScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelBase;
     private javax.swing.JPanel jPanelSignUpTitle;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable tblPatients;
     private javax.swing.JTextField txtSearchId;
