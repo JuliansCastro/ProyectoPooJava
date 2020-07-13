@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+
+import logicBusiness.CreateFile;
+import logicBusiness.EditData;
+import logicBusiness.Encrypted;
 import logicBusiness.ExportData;
 
 /*
@@ -16,12 +20,12 @@ import logicBusiness.ExportData;
  * @author DANIEL R
  * @author JUAN B
  */
-public class User implements ExportData {
+public class User implements Encrypted, EditData,CreateFile {
 //
-    private final String nameDoc = "userProfile.txt";
+	String id, name, lastName, birthdate, phone, email, user, password;
+	private final String nameDoc = "userProfile.txt";
     private final String pathfile = nameDoc;
     //private final String pathfile = new File("").getAbsolutePath() + "\\src\\resources\\base\\" + nameDoc;
-    private String id, user, password, name, lastName, birthdate, phone, email;
     private String sex, userType; //Patient == 1 
 
     private BufferedReader bufferRead = null;
@@ -97,7 +101,7 @@ public class User implements ExportData {
                     listOfPatientData.put(readId, userProfileValue);
                     setListOfPatientData(listOfPatientData);
 
-                    System.out.printf("Identificación: %s\t", readId);
+                    System.out.printf("IdentificaciÃ³n: %s\t", readId);
                     System.out.printf(" %s\t", "Paciente");
                     System.out.printf("Nombre: %s\t", readName);
                     System.out.printf("Apellido: %s\t", readLastname);
@@ -108,7 +112,7 @@ public class User implements ExportData {
                         System.out.printf("Sexo: %s\t", "Masculino");
                     }
                     System.out.printf("F. Nacimiento: %s\t", readBirthday);
-                    System.out.printf("Teléfono: %s\t", readPhone);
+                    System.out.printf("TelÃ©fono: %s\t", readPhone);
                     System.out.printf("Email: %s\t", readEmail);
                     System.out.printf("Edad: %s\t", readAgeOrExperience);
                     if ("0".equals(readSportOrProfessionalCard)) {
@@ -122,7 +126,7 @@ public class User implements ExportData {
                     listOfNutritionistsData.put(readId, userProfileValue);
                     setListOfNutritionistsData(listOfNutritionistsData);
 
-                    System.out.printf("Identificación: %s\t", readId);
+                    System.out.printf("IdentificaciÃ³n: %s\t", readId);
                     System.out.printf(" %s\t", "Nutricionista");
                     System.out.printf("Nombre: %s\t", readName);
                     System.out.printf("Apellido: %s\t", readLastname);
@@ -133,7 +137,7 @@ public class User implements ExportData {
                         System.out.printf("Sexo: %s\t", "Masculino");
                     }
                     System.out.printf("F. Nacimiento: %s\t", readBirthday);
-                    System.out.printf("Teléfono: %s\t", readPhone);
+                    System.out.printf("TelÃ©fono: %s\t", readPhone);
                     System.out.printf("Email: %s\t", readEmail);
                     System.out.printf("Experiencia: %s\t", readAgeOrExperience);
                     System.out.printf("T. Profesional: %s\n", readSportOrProfessionalCard);
@@ -150,11 +154,6 @@ public class User implements ExportData {
 
         setListOfPatientData(listOfPatientData);
         setListOfNutritionistsData(listOfNutritionistsData);
-    }
-
-    @Override
-    public void saveData() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
@@ -255,7 +254,7 @@ public class User implements ExportData {
                 System.out.println(ex.getMessage());
             }
             
-            System.out.println("\nDatos eliminados del número identificacion: " + idToRemove);
+            System.out.println("\nDatos eliminados del nÃºmero identificacion: " + idToRemove);
         } else if(listOfNutritionistsData.containsKey(idToRemove)){
             //System.out.println("\nEl usuario \'" + userToRemove + "\' no existe");
             
@@ -392,7 +391,7 @@ public class User implements ExportData {
 
     @Override
     public Cipher getCipher(boolean toEncrypt) throws Exception {
-        final String keyphrase = "EsteProyectoMeHaEnseñadoMuchoPeroCasiNoHeDormido_áÁéÉíÍóÓúÚüÜñÑ1234567890!#%$&()=%_MI_HUEVO_DE_PASCUA!_";
+        final String keyphrase = "EsteProyectoMeHaEnseÃ±adoMuchoPeroCasiNoHeDormido_Ã¡Ã�Ã©Ã‰Ã­Ã�Ã³Ã“ÃºÃšÃ¼ÃœÃ±Ã‘1234567890!#%$&()=%_MI_HUEVO_DE_PASCUA!_";
         final MessageDigest digest = MessageDigest.getInstance("SHA");
         digest.update(keyphrase.getBytes("UTF-8"));
         final SecretKeySpec key = new SecretKeySpec(digest.digest(), 0, 16, "AES");
@@ -428,9 +427,9 @@ public class User implements ExportData {
         char[] identifierArray = new char[10];
         char[] characters = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-            'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
-            'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'T', 'V', 'W', 'X', 'Y', 'Z'};
+            'O', 'P', 'Q', 'R', 'S', 'T', 'T', 'V', 'W', 'X', 'Y', 'Z'};
 
         for (int i = 0; i < identifierArray.length; i++) {
             int arrayElement = (int) (Math.random() * characters.length);
@@ -544,28 +543,16 @@ public class User implements ExportData {
     public String toString() {
         String toString;
         if ("1".equals(userType)) {
-            toString = "PACIENTE{" + "  Usuario: " + user + "   Identificación: " + id
+            toString = "PACIENTE{" + "  Usuario: " + user + "   IdentificaciÃ³n: " + id
                     + " Nombre: " + name + " Apellidos: " + lastName + " Sexo: " + sex
-                    + " Fecha de nacimiento: " + birthdate + " Teléfono: " + phone
+                    + " Fecha de nacimiento: " + birthdate + " TelÃ©fono: " + phone
                     + " Email: " + email + '}';
         } else {
-            toString = "NUTRICIONISTA{" + "  Usuario: " + user + "   Identificación: " + id
+            toString = "NUTRICIONISTA{" + "  Usuario: " + user + "   IdentificaciÃ³n: " + id
                     + " Nombre: " + name + " Apellidos: " + lastName + " Sexo: " + sex
-                    + " Fecha de nacimiento: " + birthdate + " Teléfono: " + phone
+                    + " Fecha de nacimiento: " + birthdate + " TelÃ©fono: " + phone
                     + " Email: " + email + '}';
         }
         return toString;
     }
-
-    
-    @Override
-    public void saveData(String user, String password, String id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void createReport() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
