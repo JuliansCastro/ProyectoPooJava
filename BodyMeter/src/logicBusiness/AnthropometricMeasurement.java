@@ -11,7 +11,7 @@ import javax.crypto.Cipher;
  * @author DANIEL R
  * @author JUAN B
  */
-public class AnthropometricMeasurement implements ExportData {
+public class AnthropometricMeasurement implements SaveData, CreateFile {
 
     private final String nameDoc = "Measurements.txt";
 
@@ -25,7 +25,7 @@ public class AnthropometricMeasurement implements ExportData {
 
     //Perimetros
     private double perimetroCabeza, perimetroCuello, perimetroBrazoRelajado,
-            perimetroBrazoFlexionado, perimetroAnteBrazo, perimetroMuñeca,
+            perimetroBrazoFlexionado, perimetroAnteBrazo, perimetroMuneca,
             perimetroToracicoMesoesternal, perimetroAbdominalCinturaMinimo,
             perimetroAbdominal, perimetroGluteoCaderaMaximo, perimetroMusloA1cm,
             perimetroMusloTercioMedio, perimetroPiernaMaximo, perimetroTobilloMinimo;
@@ -34,7 +34,7 @@ public class AnthropometricMeasurement implements ExportData {
     private double diametroBiacromial, diametroAnteroPosteriorAbdominal,
             diametroBiiliocrestal, diametroTrasversoToraxMesoesternal,
             diametroAnteroPosteriorToraxPecho, diametroBiepicondileoHumeral,
-            diametroBiestiloideoMuñeca, diametroBiepicondileoFemoral;
+            diametroBiestiloideoMuneca, diametroBiepicondileoFemoral;
 
     /* ----------- BUILDER ------------------------------------------------------------------------------------------------------*/
     public AnthropometricMeasurement() {
@@ -62,13 +62,13 @@ public class AnthropometricMeasurement implements ExportData {
     }
 
     //Builder Perimetros
-    public AnthropometricMeasurement(double perimetroCabeza, double perimetroCuello, double perimetroBrazoRelajado, double perimetroBrazoFlexionado, double perimetroAnteBrazo, double perimetroMuñeca, double perimetroToracicoMesoesternal, double perimetroAbdominalCinturaMinimo, double perimetroAbdominal, double perimetroGluteoCaderaMaximo, double perimetroMusloA1cm, double perimetroMusloTercioMedio, double perimetroPiernaMaximo, double perimetroTobilloMinimo) {
+    public AnthropometricMeasurement(double perimetroCabeza, double perimetroCuello, double perimetroBrazoRelajado, double perimetroBrazoFlexionado, double perimetroAnteBrazo, double perimetroMuneca, double perimetroToracicoMesoesternal, double perimetroAbdominalCinturaMinimo, double perimetroAbdominal, double perimetroGluteoCaderaMaximo, double perimetroMusloA1cm, double perimetroMusloTercioMedio, double perimetroPiernaMaximo, double perimetroTobilloMinimo) {
         this.perimetroCabeza = perimetroCabeza;
         this.perimetroCuello = perimetroCuello;
         this.perimetroBrazoRelajado = perimetroBrazoRelajado;
         this.perimetroBrazoFlexionado = perimetroBrazoFlexionado;
         this.perimetroAnteBrazo = perimetroAnteBrazo;
-        this.perimetroMuñeca = perimetroMuñeca;
+        this.perimetroMuneca = perimetroMuneca;
         this.perimetroToracicoMesoesternal = perimetroToracicoMesoesternal;
         this.perimetroAbdominalCinturaMinimo = perimetroAbdominalCinturaMinimo;
         this.perimetroAbdominal = perimetroAbdominal;
@@ -81,7 +81,7 @@ public class AnthropometricMeasurement implements ExportData {
 
     //Builder todas las medidas
     
-    public AnthropometricMeasurement(double peso, double tallaAltura, double tallaSentado, double envergaduraBrazos, double pliegueTriceps, double pliegueSubescapular, double pliegueBiceps, double pliegueCrestaIliaca, double pliegueSupraespinal, double pliegueAbdominal, double pliegueAnteriorMuslo, double pliegueMedialPierna, double plieguePectoral, double perimetroCabeza, double perimetroCuello, double perimetroBrazoRelajado, double perimetroBrazoFlexionado, double perimetroAnteBrazo, double perimetroMuñeca, double perimetroToracicoMesoesternal, double perimetroAbdominalCinturaMinimo, double perimetroAbdominal, double perimetroGluteoCaderaMaximo, double perimetroMusloA1cm, double perimetroMusloTercioMedio, double perimetroPiernaMaximo, double perimetroTobilloMinimo, double diametroBiacromial, double diametroAnteroPosteriorAbdominal, double diametroBiiliocrestal, double diametroTrasversoToraxMesoesternal, double diametroAnteroPosteriorToraxPecho, double diametroBiepicondileoHumeral, double diametroBiestiloideoMuñeca, double diametroBiepicondileoFemoral) {
+    public AnthropometricMeasurement(double peso, double tallaAltura, double tallaSentado, double envergaduraBrazos, double pliegueTriceps, double pliegueSubescapular, double pliegueBiceps, double pliegueCrestaIliaca, double pliegueSupraespinal, double pliegueAbdominal, double pliegueAnteriorMuslo, double pliegueMedialPierna, double plieguePectoral, double perimetroCabeza, double perimetroCuello, double perimetroBrazoRelajado, double perimetroBrazoFlexionado, double perimetroAnteBrazo, double perimetroMuneca, double perimetroToracicoMesoesternal, double perimetroAbdominalCinturaMinimo, double perimetroAbdominal, double perimetroGluteoCaderaMaximo, double perimetroMusloA1cm, double perimetroMusloTercioMedio, double perimetroPiernaMaximo, double perimetroTobilloMinimo, double diametroBiacromial, double diametroAnteroPosteriorAbdominal, double diametroBiiliocrestal, double diametroTrasversoToraxMesoesternal, double diametroAnteroPosteriorToraxPecho, double diametroBiepicondileoHumeral, double diametroBiestiloideoMuneca, double diametroBiepicondileoFemoral) {
         this.peso = peso;
         this.tallaAltura = tallaAltura;
         this.tallaSentado = tallaSentado;
@@ -100,7 +100,7 @@ public class AnthropometricMeasurement implements ExportData {
         this.perimetroBrazoRelajado = perimetroBrazoRelajado;
         this.perimetroBrazoFlexionado = perimetroBrazoFlexionado;
         this.perimetroAnteBrazo = perimetroAnteBrazo;
-        this.perimetroMuñeca = perimetroMuñeca;
+        this.perimetroMuneca = perimetroMuneca;
         this.perimetroToracicoMesoesternal = perimetroToracicoMesoesternal;
         this.perimetroAbdominalCinturaMinimo = perimetroAbdominalCinturaMinimo;
         this.perimetroAbdominal = perimetroAbdominal;
@@ -115,21 +115,21 @@ public class AnthropometricMeasurement implements ExportData {
         this.diametroTrasversoToraxMesoesternal = diametroTrasversoToraxMesoesternal;
         this.diametroAnteroPosteriorToraxPecho = diametroAnteroPosteriorToraxPecho;
         this.diametroBiepicondileoHumeral = diametroBiepicondileoHumeral;
-        this.diametroBiestiloideoMuñeca = diametroBiestiloideoMuñeca;
+        this.diametroBiestiloideoMuneca = diametroBiestiloideoMuneca;
         this.diametroBiepicondileoFemoral = diametroBiepicondileoFemoral;
     }
     
     
 
     //Diametros
-    public AnthropometricMeasurement(double diametroBiacromial, double diametroAnteroPosteriorAbdominal, double diametroBiiliocrestal, double diametroTrasversoToraxMesoesternal, double diametroAnteroPosteriorToraxPecho, double diametroBiepicondileoHumeral, double diametroBiestiloideoMuñeca, double diametroBiepicondileoFemoral) {
+    public AnthropometricMeasurement(double diametroBiacromial, double diametroAnteroPosteriorAbdominal, double diametroBiiliocrestal, double diametroTrasversoToraxMesoesternal, double diametroAnteroPosteriorToraxPecho, double diametroBiepicondileoHumeral, double diametroBiestiloideoMuneca, double diametroBiepicondileoFemoral) {
         this.diametroBiacromial = diametroBiacromial;
         this.diametroAnteroPosteriorAbdominal = diametroAnteroPosteriorAbdominal;
         this.diametroBiiliocrestal = diametroBiiliocrestal;
         this.diametroTrasversoToraxMesoesternal = diametroTrasversoToraxMesoesternal;
         this.diametroAnteroPosteriorToraxPecho = diametroAnteroPosteriorToraxPecho;
         this.diametroBiepicondileoHumeral = diametroBiepicondileoHumeral;
-        this.diametroBiestiloideoMuñeca = diametroBiestiloideoMuñeca;
+        this.diametroBiestiloideoMuneca = diametroBiestiloideoMuneca;
         this.diametroBiepicondileoFemoral = diametroBiepicondileoFemoral;
     }
 
@@ -157,7 +157,7 @@ public class AnthropometricMeasurement implements ExportData {
         String tempPerimetroBrazoRelajado = Double.toString(getPerimetroBrazoRelajado());
         String tempPerimetroBrazoFlexionado = Double.toString(getPerimetroBrazoFlexionado());
         String tempPerimetroAnteBrazo = Double.toString(getPerimetroAnteBrazo());
-        String tempPerimetroMuñeca = Double.toString(getPerimetroMuñeca());
+        String tempPerimetroMuneca = Double.toString(getPerimetroMuneca());
         String tempPerimetroToracicoMesoesternal = Double.toString(getPerimetroToracicoMesoesternal());
         String tempPerimetroAbdominalCinturaMinimo = Double.toString(getPerimetroAbdominalCinturaMinimo());
         String tempPerimetroAbdominal = Double.toString(getPerimetroAbdominal());
@@ -173,7 +173,7 @@ public class AnthropometricMeasurement implements ExportData {
         String tempDiametroTrasversoToraxMesoesternal = Double.toString(getDiametroTrasversoToraxMesoesternal());
         String tempDiametroAnteroPosteriorToraxPecho = Double.toString(getDiametroAnteroPosteriorToraxPecho());
         String tempDiametroBiepicondileoHumeral = Double.toString(getDiametroBiepicondileoHumeral());
-        String tempDiametroBiestiloideoMuñeca = Double.toString(getDiametroBiestiloideoMuñeca());
+        String tempDiametroBiestiloideoMuneca = Double.toString(getDiametroBiestiloideoMuneca());
         String tempDiametroBiepicondileoFemoral = Double.toString(getDiametroBiepicondileoFemoral());
 
         String[] measurements = {tempPeso, tempTallaAltura, tempTallaSentado,
@@ -182,13 +182,13 @@ public class AnthropometricMeasurement implements ExportData {
             tempPliegueAbdominal, tempPliegueAnteriorMuslo, tempPliegueMedialPierna,
             tempPlieguePectoral,
             tempPerimetroCabeza, tempPerimetroCuello, tempPerimetroBrazoRelajado,
-            tempPerimetroBrazoFlexionado, tempPerimetroAnteBrazo, tempPerimetroMuñeca,
+            tempPerimetroBrazoFlexionado, tempPerimetroAnteBrazo, tempPerimetroMuneca,
             tempPerimetroToracicoMesoesternal, tempPerimetroAbdominalCinturaMinimo,
             tempPerimetroAbdominal, tempPerimetroGluteoCaderaMaximo, tempPerimetroMusloA1cm,
             tempPerimetroMusloTercioMedio, tempPerimetroPiernaMaximo, tempPerimetroTobilloMinimo,
             tempDiametroBiacromial, tempDiametroAnteroPosteriorAbdominal, tempDiametroBiiliocrestal,
             tempDiametroTrasversoToraxMesoesternal, tempDiametroAnteroPosteriorToraxPecho,
-            tempDiametroBiepicondileoHumeral, tempDiametroBiestiloideoMuñeca,
+            tempDiametroBiepicondileoHumeral, tempDiametroBiestiloideoMuneca,
             tempDiametroBiepicondileoFemoral};
 
         try (FileWriter fw = new FileWriter(nameDoc, true);
@@ -356,12 +356,12 @@ public class AnthropometricMeasurement implements ExportData {
         this.perimetroAnteBrazo = perimetroAnteBrazo;
     }
 
-    public double getPerimetroMuñeca() {
-        return perimetroMuñeca;
+    public double getPerimetroMuneca() {
+        return perimetroMuneca;
     }
 
-    public void setPerimetroMuñeca(double perimetroMuñeca) {
-        this.perimetroMuñeca = perimetroMuñeca;
+    public void setPerimetroMuneca(double perimetroMuneca) {
+        this.perimetroMuneca = perimetroMuneca;
     }
 
     public double getPerimetroToracicoMesoesternal() {
@@ -476,12 +476,12 @@ public class AnthropometricMeasurement implements ExportData {
         this.diametroBiepicondileoHumeral = diametroBiepicondileoHumeral;
     }
 
-    public double getDiametroBiestiloideoMuñeca() {
-        return diametroBiestiloideoMuñeca;
+    public double getDiametroBiestiloideoMuneca() {
+        return diametroBiestiloideoMuneca;
     }
 
-    public void setDiametroBiestiloideoMuñeca(double diametroBiestiloideoMuñeca) {
-        this.diametroBiestiloideoMuñeca = diametroBiestiloideoMuñeca;
+    public void setDiametroBiestiloideoMuneca(double diametroBiestiloideoMuneca) {
+        this.diametroBiestiloideoMuneca = diametroBiestiloideoMuneca;
     }
 
     public double getDiametroBiepicondileoFemoral() {
@@ -515,45 +515,4 @@ public class AnthropometricMeasurement implements ExportData {
             }
         }
     }
-
-    @Override
-    public void createReport() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void readDatabase() throws IOException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleteDataUser(String userToRemove) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void saveData(String user, String password, String id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public byte[] encrypt(String unencrypted) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String decrypt(String encrypted) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Cipher getCipher(boolean toEncrypt) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public byte[] asBytes(String convertString) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
